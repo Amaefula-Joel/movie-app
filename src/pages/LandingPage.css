@@ -1,0 +1,21 @@
+
+img{
+    max-width: 100%;
+}
+
+.p-relative{
+    position: relative;
+}
+
+.hero-container{
+    min-height: 100vh;
+    max-height: 1000px;
+    /* overflow: hidden; */
+}
+
+.hero-background{
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    ;
+}
