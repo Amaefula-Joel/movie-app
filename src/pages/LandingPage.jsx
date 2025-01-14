@@ -10,6 +10,7 @@ const LandingPage = () => {
               <div className="hero-background" style={{ background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.69) 20%, rgba(0, 0, 0, 0.96)), url('/hero-image.jpg')`}}></div>
 
               <div className='hero-content flex-column d-flex p-relative w-100'>
+                
 
                 {/* navbar starts */}
                 <nav className="navbar navbar-expand-lg navbar-dark flex-grow-0">
