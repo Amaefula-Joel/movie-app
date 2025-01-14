@@ -173,24 +173,30 @@ const LandingPage = () => {
       {/* frequently asked section starts */}
       <section className="freq-asked py-4">
         <div className="container text-white">
-          <h2 className={`mb-4 ${2 > 5 ? 'text-danger' : ''}`}>Frequently Asked Questions</h2>
+          <h2 className="mb-4">Frequently Asked Questions</h2>
 
-          <div id="accordion">
-            <div className="card">
-              <div className="card-header" id="headingOne">
-                <h5 className="mb-0">
-                  <button className="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Collapsible Group Item #1
-                  </button>
-                </h5>
-              </div>
+          <div id="accordion" classname="text-white">
 
-              <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                <div className="card-body">
-                  Content for the first panel of the accordion
+            {frequentlyAskedQuestion.map((item, index) =>
+              <div key={index} className='card bg-dark mb-2'>
+                <div className="card-header px-2" id={`heading${index}`}>
+                  <h5 className="mb-0">
+                    <button className="btn btn-block text-left text-white border-0 collapse-button d-flex justify-content-between align-items-center" style={{fontSize: '20px', fontWeight: 500}} data-toggle="collapse" data-target={`#collapse${index}`} aria-expanded="true" aria-controls={`#collapse${index}`}>
+                      <span>{item.heading}</span>
+
+                      <i className="fa fa-plus"></i>
+                      <i className="fa fa-close"></i>
+                    </button>
+                  </h5>
                 </div>
-              </div>
-            </div>
+
+                <div id={`collapse${index}`} className="collapse" aria-labelledby={`heading${index}`} data-parent="#accordion">
+                  <div className="card-body">
+                    {item.answer}
+                  </div>
+                </div>
+              </div>)}
+
           </div>
 
         </div>
