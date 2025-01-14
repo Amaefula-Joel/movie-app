@@ -7,6 +7,10 @@ img{
     position: relative;
 }
 
+.main-container{
+    background-color: rgb(21, 21, 21);
+}
+
 .hero-container{
     min-height: 100vh;
     max-height: 1000px;
@@ -17,5 +21,15 @@ img{
     position: absolute;
     inset: 0;
     background-size: cover;
-    ;
+
 }
+
+.reasons .card{
+    background: linear-gradient( 149deg, #192247 0%, #210e17 96.86%);
+}
+
+/* linear-gradient(
+                    149deg,
+                    #192247 0%,
+                    #210e17 96.86%
+                ) */
