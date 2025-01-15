@@ -181,7 +181,7 @@ const LandingPage = () => {
               <div key={index} className='card bg-dark mb-2'>
                 <div className="card-header px-2" id={`heading${index}`}>
                   <h5 className="mb-0">
-                    <button className="btn btn-block text-left text-white border-0 collapse-button d-flex justify-content-between align-items-center" style={{fontSize: '20px', fontWeight: 500}} data-toggle="collapse" data-target={`#collapse${index}`} aria-expanded="true" aria-controls={`#collapse${index}`}>
+                    <button className="btn btn-block text-left text-white border-0 collapse-button d-flex justify-content-between align-items-center" style={{ fontSize: '20px', fontWeight: 500 }} data-toggle="collapse" data-target={`#collapse${index}`} aria-expanded="false" aria-controls={`#collapse${index}`}>
                       <span>{item.heading}</span>
 
                       <i className="fa fa-plus"></i>
