@@ -4,7 +4,7 @@ function Theatres() {
   return (
     <div className='container'>
       <div className='trending'>
-      <div className="flex justify-between mx-3  ">
+      <div className="flex flex-col sm:flex-row justify-between mx-3 sm:mb-0 mb-3 ">
           <div className="flex mt-4 ml-3" >
           <img src="../movie.jpg" className='logo' />
             <a href="blah">
@@ -26,7 +26,7 @@ function Theatres() {
         </div>
         {/* end of header */}
         <div className="text-center px-4 ">
-          <h1 className="text-6xl text-white font-bold mt-28 ">
+          <h1 className="text-3xl  md:text-6xl text-white font-bold mt-28 ">
             <span className="text-red-700 ">MovieFlix,</span>
             Your Favourite  Movie Finder
           </h1>

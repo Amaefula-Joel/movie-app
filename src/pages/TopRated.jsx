@@ -6,7 +6,7 @@ function TopRated() {
       <div className="top">
         <div className="flex justify-between mx-3  ">
           <div className="flex mt-4 ml-3">
-          <img src="../movie.jpg" className='logo' />
+          <img src="../movie.jpg"  className='logo' />
             <a href="blah">
               <h2 className="text-3xl text-white mt-4 ml-5">MovieFlix</h2>
             </a>

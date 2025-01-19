@@ -1,21 +1,47 @@
-
-img{
+img {
     max-width: 100%;
 }
 
-.p-relative{
+.p-relative {
     position: relative;
 }
 
-.hero-container{
+.main-container {
+    max-width: 1500px;
+    margin: 0 auto;
+    background-color: rgb(21, 21, 21);
+}
+
+.hero-container {
     min-height: 100vh;
     max-height: 1000px;
     /* overflow: hidden; */
 }
 
-.hero-background{
+.hero-background {
     position: absolute;
     inset: 0;
     background-size: cover;
-    ;
+
+}
+
+.reasons .card {
+    background: linear-gradient(149deg, #192247 0%, #210e17 96.86%);
+}
+
+/* accordion style */
+#accordion .collapse-button .fa-plus {
+    display: block;
+}
+
+#accordion .collapse-button .fa-close {
+    display: none;
+}
+
+#accordion .collapse-button[aria-expanded="true"] .fa-plus {
+    display: none;
+}
+
+#accordion .collapse-button[aria-expanded="true"] .fa-close {
+    display: block;
 }

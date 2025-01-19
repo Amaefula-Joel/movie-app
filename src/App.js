@@ -1,17 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Bookmarks from "./pages/Bookmarks";
-import TrendingToday from "./pages/TrendingToday";
-import TopRated from "./pages/TopRated";
-import TvSeries from "./pages/TvSeries";
-import Theatres from "./pages/Theatres";
-// import Trending from "./pages/Trending";
-// import TopRated from "./pages/TopRated";
-// import InTheatres from "./pages/InTheatres";
-// import TvSeries from "./pages/TvSeries";
+// import Home from "./pages/Home";
 // import Bookmarks from "./pages/Bookmarks";
-// import Sidebar from "./components/Sidebar";
+// import TrendingToday from "./pages/TrendingToday";
+// import TopRated from "./pages/TopRated";
+// import TvSeries from "./pages/TvSeries";
+import Theatres from "./pages/Theatres";
+
 
 function App() {
   return (

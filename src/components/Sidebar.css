@@ -1,0 +1,119 @@
+.sidebar {
+    border: 2px solid #000;
+    min-height: 100vh;
+    width: 60px;
+    background-color: #000;
+    padding: 4rem .3rem;
+    position: relative;
+    overflow-x: hidden;
+    z-index: 100;
+    transition: .3s ease-out;
+}
+
+/* .sidebar ul{
+    gap: 14px;
+} */
+
+.sidebar ul li{
+    padding: .4rem 0;
+}
+
+.sidebar .links {
+    color: #fff;
+    padding: .6rem ;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: .3s;
+    font-weight: 600;
+    border-radius: 7px;
+    white-space: nowrap;
+    position: relative;
+    z-index: 999;
+}
+
+.sidebar .links:hover{
+    /* background-color: #ffffff; */
+    color: #000;
+}
+
+.sidebar .links.active{
+    background-color: #fff;
+    color: #000;
+}
+.sidebar .links i {
+    /* font-size: 1.4rem; */
+    font-size: 1.6rem;
+    margin-right: 0;
+    transition: .3s;
+}
+.sidebar .links span {
+    font-size: .9rem;
+    transition: width .3s;
+    display: inline-block;
+    overflow: hidden;
+    width: 0;
+}
+
+.link-icon:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar:hover{
+    width: 200px;
+}
+
+.sidebar:hover .links{
+    justify-content: flex-start;
+    /* padding-left: 1rem; */
+}
+.sidebar:hover .links i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.sidebar:hover .links span {
+    width: 100%;
+}
+
+
+.active-bg{
+    background-color: #fff;
+    position: absolute;
+    top: 2%;
+    left: 0;
+    height: 40px;
+    width: 100%;
+    display: none;
+    transition: .3s;
+}
+
+.sidebar ul li:hover ~ .active-bg{
+    display: block;
+}
+.sidebar ul li:nth-child(1):hover ~ .active-bg{
+    top: 2%;
+}
+.sidebar ul li:nth-child(2):hover ~ .active-bg{
+    top: calc(2% + (16.5% * 1) );
+}
+.sidebar ul li:nth-child(3):hover ~ .active-bg{
+    top: calc(2% + (16.5% * 2) );
+}
+.sidebar ul li:nth-child(4):hover ~ .active-bg{
+    top: calc(2% + (16.5% * 3) );
+}
+.sidebar ul li:nth-child(5):hover ~ .active-bg{
+    top: calc(2% + (16.5% * 4) );
+}
+.sidebar ul li:nth-child(6):hover ~ .active-bg{
+    top: calc(2% + (16.5% * 5) );
+}
+
+/* 17.5 */
+/* 35 */
+/* 52.5 */
+/* 70 */
+/* 87.5 */
