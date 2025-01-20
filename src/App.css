@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -39,4 +39,52 @@
   to {
     transform: rotate(360deg);
   }
+} */
+.background{
+  background-image: url(../public/home.webp);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 80vh;
+  width: 100%;
+}
+.book{
+  background-image: url(../public/bookmark.svg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 60vh;
+  width: 60%;
+}
+.trending{
+  background-image: url(../public/trending.webp);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.857);
+  height: 80vh;
+  width: 100%;
+}
+.top{
+  background-image: url(../public/top\ rated.webp);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.857);
+  height: 80vh;
+  width: 100%;
+}
+.series{
+  background-image: url(../public/series.webp);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.857);
+  height: 80vh;
+  width: 100%;
+}
+.logo{
+  height: 40px;
+  width: 50px;
+  border-radius: 20px;
 }

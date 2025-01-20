@@ -2,7 +2,9 @@ import React from 'react'
 
 function Bookmarks() {
   return (
-    <div>Bookmarks</div>
+    <div className='book mx-48 mt-20'>
+      {/* whatever logic needed for the API */}
+    </div>
   )
 }
 
