@@ -10,6 +10,8 @@ import Home from './pages/Home';
 import TrendingToday from './pages/TrendingToday';
 import TopRated from './pages/TopRated';
 import Theatres from './pages/Theatres';
+import Bookmarks from './pages/Bookmarks';
+import TvSeries from './pages/TvSeries';
 // import Sidebar from './components/Sidebar';
 
 function App() {

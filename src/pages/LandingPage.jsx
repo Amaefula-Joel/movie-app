@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 // import FAQAccordion from '../components/Accordion';
 // import { useState } from 'react';
 
-import './LandingPage.css';
+import '../styles/LandingPage.css';
 
 const frequentlyAskedQuestion = [
   {
