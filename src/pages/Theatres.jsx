@@ -1,4 +1,5 @@
 import React from 'react'
+import TheatreAPI from '../APIs/TheatreAPi'
 
 function Theatres() {
   return (
@@ -33,6 +34,11 @@ function Theatres() {
         </div>
       </div>
       {/* end of section */}
+      <div className="browse mt-20 mb-10 ">
+        <h1 className="bg-red-500 text-white font-semibold inline-block text-lg px-4 py-2 rounded-lg shadow-sm">
+        Browse Your Now_playing Movies</h1>
+      </div>
+      <TheatreAPI/>
     </div>
   )
 }

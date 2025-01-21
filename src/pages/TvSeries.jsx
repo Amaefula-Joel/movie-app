@@ -1,4 +1,5 @@
 import React from "react";
+import SeriesAPI from "../APIs/SeriesApi";
 
 function TvSeries() {
   return (
@@ -32,6 +33,10 @@ function TvSeries() {
         </div>
       </div>
       {/* end of section */}
+      <div className="browse mt-20 mb-10 ">
+        <h1 className="bg-red-500 text-white font-semibold inline-block text-lg px-4 py-2 rounded-lg shadow-sm">Browse Your TV Movies</h1>
+      </div>
+      <SeriesAPI/>
     </div>
   );
 }
