@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../styles/Sidebar.css';
 
 function Sidebar() {
@@ -7,12 +7,36 @@ function Sidebar() {
     <aside className='sidebar d-flex flex-column justify-content-center'>
       <nav>
         <ul className='list-unstyled d-flex flex-column p-relative mb-0'>
-          <li className=''><Link to='/test' className='links active d-flex'> <i className="fa fa-home"></i> <span>Home</span></Link></li>
-          <li className=''><Link to='/test' className='links d-flex'> <i className="fa fa-fire"></i> <span>Trending</span></Link></li>
-          <li className=''><Link to='/test' className='links d-flex'> <i className="fa fa-star"></i> <span>Top Rated</span></Link></li>
-          <li className=''><Link to='/test' className='links d-flex'> <i className="fa fa-calendar "></i> <span>Theaters</span></Link></li>
-          <li className=''><Link to='/test' className='links d-flex'> <i className="fa fa-tv "></i> <span>Tv Series</span></Link></li>
-          <li className=''><Link to='/test' className='links d-flex'> <i className="fa fa-bookmark"></i> <span>Bookmark</span></Link></li>
+          <li className=''>
+            <NavLink to='/home' className='links d-flex'>
+              <i className="fa fa-home"></i> <span>Home</span>
+            </NavLink>
+          </li>
+          <li className=''>
+            <NavLink to='/trending' className='links d-flex'>
+              <i className="fa fa-fire"></i> <span>Trending</span>
+            </NavLink>
+          </li>
+          <li className=''>
+            <NavLink to='/top-rated' className='links d-flex'>
+              <i className="fa fa-star"></i> <span>Top Rated</span>
+            </NavLink>
+          </li>
+          <li className=''>
+            <NavLink to='/in-theatres' className='links d-flex'>
+              <i className="fa fa-calendar "></i> <span>Theaters</span>
+            </NavLink>
+          </li>
+          <li className=''>
+            <NavLink to='/tv-series' className='links d-flex'>
+              <i className="fa fa-tv "></i> <span>Tv Series</span>
+            </NavLink>
+          </li>
+          <li className=''>
+            <NavLink to='/bookmarks' className='links d-flex'>
+              <i className="fa fa-bookmark"></i> <span>Bookmark</span>
+            </NavLink>
+          </li>
 
           <div className="active-bg"></div>
         </ul>

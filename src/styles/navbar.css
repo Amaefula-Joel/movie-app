@@ -1,0 +1,21 @@
+.brand{
+    font-weight: 600;
+}
+.search-form select{
+    border-radius: 16px 0 0 16px;
+}
+.search-form input{
+    border-radius: 0;
+}
+.search-form button{
+    border-radius: 0 16px 16px 0;
+}
+
+@media screen and (max-width: 768px) {
+    .search-form select{
+        border-radius: 0;
+    }
+    .search-form button{
+        border-radius: 12px;
+    }
+}

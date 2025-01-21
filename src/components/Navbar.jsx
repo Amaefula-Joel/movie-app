@@ -1,24 +1,34 @@
 import { Link } from "react-router-dom";
 
+import '../styles/navbar.css';
+
 const Navbar = () => {
     return (
-        <div className="flex justify-between mx-3  ">
-            <div className="flex mt-4 ml-3">
-                <img src="../movie.jpg" className='logo' alt="movieflix logo"/>
-                <Link to="/homr">
-                    <h2 className="text-3xl text-white mt-4 ml-5">MovieFlix</h2>
-                </Link>
+
+        <div className="d-block d-md-flex justify-content-between align-items-center px-md-4 px-3 py-4">
+            <div className="d-flex align-items-center">
+            <img src="../movie.jpg" className='logo mr-3' alt="movieflix logo"/>
+            <Link to="/" className="brand text-white" style={{fontSize: '20px'}}>MovieFlix</Link>
             </div>
-            <div className="mt-4 ">
-                <select className="bg-gray-800 text-white p-3 rounded">
-                    <option>Movie</option>
-                    <option>Series</option>
-                </select>
-                <input type="text"
-                    placeholder="search Movies"
-                    className="p-3 w-64 md:w-80 bg-white-800 text-black placeholder-white-400"
-                />
-                <button className="p-3 bg-gray-800 rounded">🔍</button>
+
+            <div className="d-flex align-items-center mt-3 mt-md-0">
+                <form className="form-inline search-form">
+                    <select className="form-control mb-sm-0 mb-2" name="search-option">
+                        <option value="movie">
+                            Movie
+                        </option>
+                        <option value="tv-series">
+                            TV Series
+                        </option>
+                    </select>
+
+                    <input className="form-control mb-sm-0 mb-2" type="search" placeholder="Search Movies" aria-label="Search" />
+
+                    <button className="btn btn-light text-white" type="submit">
+                        <i className="fa fa-search text-black"></i>
+                        <span className="sr-only">submit</span>
+                    </button>
+                </form>
             </div>
         </div>
     )
