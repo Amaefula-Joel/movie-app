@@ -40,23 +40,46 @@
     transform: rotate(360deg);
   }
 } */
-.background{
+
+.main-wrapper{
+  display: grid;
+  /* gap: 14px; */
+  grid-template-columns: 60px 1fr;
+  height: 100vh;
+  min-height: 500px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.main-content{
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.app-header{
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+
+/* .background{
   background-image: url(../public/home.webp);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   height: 80vh;
   width: 100%;
-}
-.book{
+} */
+/* .book{
   background-image: url(../public/bookmark.svg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   height: 60vh;
   width: 60%;
-}
-.trending{
+} */
+/* .trending{
   background-image: url(../public/trending.webp);
   background-position: center;
   background-size: cover;
@@ -64,8 +87,8 @@
   background-color: rgba(0, 0, 0, 0.857);
   height: 80vh;
   width: 100%;
-}
-.top{
+} */
+/* .top{
   background-image: url(../public/top\ rated.webp);
   background-position: center;
   background-size: cover;
@@ -73,8 +96,8 @@
   background-color: rgba(0, 0, 0, 0.857);
   height: 80vh;
   width: 100%;
-}
-.series{
+} */
+/* .series{
   background-image: url(../public/series.webp);
   background-position: center;
   background-size: cover;
@@ -82,7 +105,7 @@
   background-color: rgba(0, 0, 0, 0.857);
   height: 80vh;
   width: 100%;
-}
+} */
 .logo{
   height: 40px;
   width: 50px;

@@ -2,6 +2,7 @@
 import './App.css';
 import './styles/custom.css'; // Importing Bootstrap custom CSS
 import 'bootstrap/dist/js/bootstrap.bundle.min'; // Importing Bootstrap JS
+import 'font-awesome/css/font-awesome.min.css';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -13,6 +14,7 @@ import Theatres from './pages/Theatres';
 import Bookmarks from './pages/Bookmarks';
 import TvSeries from './pages/TvSeries';
 // import Sidebar from './components/Sidebar';
+// import Layout from './pages/Layout';
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
       <Routes>
         {/* Landing page */}
         <Route path="/" element={<LandingPage />} />
+        {/* <Route path="/test" element={<Layout />} /> */}
 
         {/* application routes */}
         <Route path="/home" element={<Home />} />

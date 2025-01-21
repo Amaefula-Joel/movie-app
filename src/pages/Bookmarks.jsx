@@ -1,9 +1,17 @@
-import React from 'react'
+import React from "react";
+import Sidebar from "../components/Sidebar";
 
 function Bookmarks() {
   return (
-    <div className='book mx-48 mt-20'>
-      {/* whatever logic needed for the API */}
+    <div className="main-wrapper">
+
+      <Sidebar />
+
+      <main className="main-content">
+
+
+      </main>
+
     </div>
   )
 }

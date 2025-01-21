@@ -5,7 +5,7 @@ const Navbar = () => {
         <div className="flex justify-between mx-3  ">
             <div className="flex mt-4 ml-3">
                 <img src="../movie.jpg" className='logo' alt="movieflix logo"/>
-                <Link to="blah">
+                <Link to="/homr">
                     <h2 className="text-3xl text-white mt-4 ml-5">MovieFlix</h2>
                 </Link>
             </div>

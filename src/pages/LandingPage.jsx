@@ -175,7 +175,7 @@ const LandingPage = () => {
         <div className="container text-white">
           <h2 className="mb-4">Frequently Asked Questions</h2>
 
-          <div id="accordion" classname="text-white">
+          <div id="accordion" className="text-white">
 
             {frequentlyAskedQuestion.map((item, index) =>
               <div key={index} className='card bg-dark mb-2'>
