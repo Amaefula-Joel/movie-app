@@ -55,6 +55,12 @@ body{
   margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+  .main-wrapper{
+    grid-template-columns: 50px 1fr;
+  }
+}
+
 .main-content{
   overflow-y: auto;
   overflow-x: hidden;
@@ -64,12 +70,10 @@ body{
   display: none;
 }
 
-.app-header{
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+/* .app-header{
+  background-color: #000;
 
-}
+} */
 
 .logo{
   height: 40px;

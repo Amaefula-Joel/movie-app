@@ -13,27 +13,27 @@ function Sidebar() {
             </NavLink>
           </li>
           <li className=''>
-            <NavLink to='/trending' className='links d-flex'>
+            <NavLink to='/trending/1' className='links d-flex'>
               <i className="fa fa-fire"></i> <span>Trending</span>
             </NavLink>
           </li>
           <li className=''>
-            <NavLink to='/top-rated' className='links d-flex'>
+            <NavLink to='/top-rated/1' className='links d-flex'>
               <i className="fa fa-star"></i> <span>Top Rated</span>
             </NavLink>
           </li>
           <li className=''>
-            <NavLink to='/in-theatres' className='links d-flex'>
+            <NavLink to='/in-theatres/1' className='links d-flex'>
               <i className="fa fa-calendar "></i> <span>Theaters</span>
             </NavLink>
           </li>
           <li className=''>
-            <NavLink to='/tv-series' className='links d-flex'>
+            <NavLink to='/tv-series/1' className='links d-flex'>
               <i className="fa fa-tv "></i> <span>Tv Series</span>
             </NavLink>
           </li>
           <li className=''>
-            <NavLink to='/bookmarks' className='links d-flex'>
+            <NavLink to='/bookmarks/1' className='links d-flex'>
               <i className="fa fa-bookmark"></i> <span>Bookmark</span>
             </NavLink>
           </li>

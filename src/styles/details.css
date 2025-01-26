@@ -1,0 +1,40 @@
+.details-container {
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.details-content {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.details-content img {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.details-info {
+    max-width: 600px;
+}
+
+.details-info h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.details-info button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.details-info p {
+    margin: 5px 0;
+}

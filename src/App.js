@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import './App.css';
 import './styles/custom.css'; // Importing Bootstrap custom CSS
 import 'bootstrap/dist/js/bootstrap.bundle.min'; // Importing Bootstrap JS
@@ -13,8 +12,7 @@ import TopRated from './pages/TopRated';
 import Theatres from './pages/Theatres';
 import Bookmarks from './pages/Bookmarks';
 import TvSeries from './pages/TvSeries';
-// import Sidebar from './components/Sidebar';
-// import Layout from './pages/Layout';
+import Details from './pages/Details'; // Import the Details component
 
 function App() {
   return (
@@ -22,15 +20,18 @@ function App() {
       <Routes>
         {/* Landing page */}
         <Route path="/" element={<LandingPage />} />
-        {/* <Route path="/test" element={<Layout />} /> */}
 
         {/* application routes */}
         <Route path="/home" element={<Home />} />
-        <Route path="/trending" element={<TrendingToday />} />
-        <Route path="/top-rated" element={<TopRated />} />
-        <Route path="/in-theatres" element={<Theatres />} />
-        <Route path="/tv-series" element={<TvSeries />} />
-        <Route path="/bookmarks" element={<Bookmarks />} />
+        <Route path="/trending/:id" element={<TrendingToday />} />
+        <Route path="/top-rated/:id" element={<TopRated />} />
+        <Route path="/in-theatres/:id" element={<Theatres />} />
+        <Route path="/tv-series/:id" element={<TvSeries />} />
+        <Route path="/bookmarks/:id" element={<Bookmarks />} />
+        
+        {/* New routes for details */}
+        <Route path="/details/:type/:id" element={<Details />} />
+        {/* <Route path="/details/:tv/:id" element={<Details />} /> */}
       </Routes>
     </BrowserRouter>
   );
