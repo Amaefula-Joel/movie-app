@@ -40,6 +40,7 @@ function Theatres() {
   const goToPage = (pageNumber) => {
     navigate(`/in-theatres/${pageNumber}`);
   };
+
   return (
     <div className="main-wrapper">
       <Sidebar />
@@ -67,15 +68,14 @@ function Theatres() {
                   </div>
                 </div>
               </div>
-
             </div>
             {/* header ends */}
 
             <div className="container-fluid">
               <div className="pt-5 pb-4">
-                <h1 className="d-inline-block mb-5 px-3 py-2" style={{ fontSize: '28px', backgroundColor: 'rgb(230, 253, 255)' }}>Trending Movies</h1>
+                <h1 className="d-inline-block mb-5 px-3 py-2" style={{ fontSize: '28px', backgroundColor: 'rgb(230, 253, 255)' }}>In Theatres</h1>
                 <div>
-                  <MovieList items={data.results} />
+                  <MovieList items={data.results} type="movie" /> {/* Pass the type prop */}
                 </div>
                 {/* pagination */}
                 <div className="mt-3 text-center">

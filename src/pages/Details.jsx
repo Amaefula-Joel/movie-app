@@ -37,11 +37,11 @@ const Details = () => {
                 <div className="details-info">
                     <h1>{details.title || details.name}</h1>
                     <button>Play Trailer</button>
-                    <p>Rating: {details.vote_average}</p>
-                    <p>Release Date: {details.release_date || details.first_air_date}</p>
-                    <p>Runtime: {details.runtime ? `${details.runtime} mins` : 'N/A'}</p>
-                    <p>Genres: {details.genres.map(genre => genre.name).join(', ')}</p>
-                    <p>Production Companies: {details.production_companies.map(company => company.name).join(', ')}</p>
+                    <p className="mb-3"> <b>Rating:</b> {details.vote_average}</p>
+                    <p className="mb-3"> <b>Release Date</b> {details.release_date || details.first_air_date}</p>
+                    <p className="mb-3"> <b>Runtime:</b> {details.runtime ? `${details.runtime} mins` : 'N/A'}</p>
+                    <p className="mb-3"> <b>Genres:</b> {details.genres.map(genre => genre.name).join(', ')}</p>
+                    <p className="mb-3"> <b>Production Companies:</b> {details.production_companies.map(company => company.name).join(', ')}</p>
                     <p>{details.overview}</p>
                 </div>
             </div>

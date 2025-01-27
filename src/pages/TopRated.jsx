@@ -64,7 +64,6 @@ function TopRated() {
                   </div>
                 </div>
               </div>
-
             </div>
 
             {/* header ends here */}
@@ -73,7 +72,7 @@ function TopRated() {
               <div className="pt-5 pb-4">
                 <h1 className="d-inline-block mb-5 px-3 py-2" style={{ fontSize: '28px', backgroundColor: 'rgb(230, 253, 255)' }}>Top Rated Movies</h1>
                 <div>
-                  <MovieList items={data.results} />
+                  <MovieList items={data.results} type="movie" /> {/* Pass the type prop */}
                 </div>
                 <div className="mt-3 text-center">
                   <button onClick={() => { if (page > 1) { goToPage(page - 1) } }} className={`btn btn-primary btn-lg mr-3 ${page < 2 ? 'disabled' : ''}`}>

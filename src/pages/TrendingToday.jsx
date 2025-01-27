@@ -41,7 +41,6 @@ function TrendingToday() {
     navigate(`/trending/${pageNumber}`);
   };
 
-  
   if(error) {
     console.log(error);
   }
@@ -73,7 +72,6 @@ function TrendingToday() {
                   </div>
                 </div>
               </div>
-
             </div>
             {/* header ends */}
 
@@ -81,7 +79,7 @@ function TrendingToday() {
               <div className="pt-5 pb-4">
                 <h1 className="d-inline-block mb-5 px-3 py-2" style={{ fontSize: '28px', backgroundColor: 'rgb(230, 253, 255)' }}>Trending Movies</h1>
                 <div>
-                  <MovieList items={data.results} />
+                  <MovieList items={data.results} type="movie" /> {/* Pass the type prop */}
                 </div>
                 {/* pagination */}
                 <div className="mt-3 text-center">
