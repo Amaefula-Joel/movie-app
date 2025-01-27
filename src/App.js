@@ -3,6 +3,8 @@ import './styles/custom.css'; // Importing Bootstrap custom CSS
 import 'bootstrap/dist/js/bootstrap.bundle.min'; // Importing Bootstrap JS
 import 'font-awesome/css/font-awesome.min.css';
 
+import { Analytics } from "@vercel/analytics/react" // for vercel analytics
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import LandingPage from './pages/LandingPage';
