@@ -41,3 +41,12 @@ export const getMovieDetails = (id) =>
 
 export const getTvSeriesDetails = (id) =>
   fetchMovies(`/tv/${id}`);
+
+export const getSimilarMovies = (id) =>
+  fetchMovies(`/movie/${id}/similar`);
+
+export const getSimilarTvSeries = (id) =>
+  fetchMovies(`/tv/${id}/similar`);
+
+// https://api.themoviedb.org/3/tv/{series_id}/similar
+// https://api.themoviedb.org/3/movie/{movie_id}/similar

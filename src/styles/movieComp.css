@@ -42,7 +42,7 @@
     font-size: 12px;
 }
 
-.overlay {
+.img-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -56,7 +56,7 @@
     transition: opacity 0.3s;
 }
 
-.poster-con:hover .overlay {
+.poster-con:hover .img-overlay {
     opacity: 1;
     /* Show overlay on hover */
 }

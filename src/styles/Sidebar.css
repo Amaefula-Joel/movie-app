@@ -8,6 +8,9 @@
     overflow-x: hidden;
     z-index: 100;
     transition: .2s ease-out;
+
+    position: relative;
+    z-index: 9999;
 }
 
 .sidebar ul li {

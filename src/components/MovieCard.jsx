@@ -7,9 +7,9 @@ const MovieCard = ({ id, poster_path, title, vote_average, release_date, adult, 
             <div className="movie-card">
                 <div className="poster-con">
                     <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt={title} className="img-fluid w-100" />
-                    {<span className="badge"> +18 </span>}
+                    {adult && <span className="badge"> +18 </span>}
                     {/* <div className="overlay"> */}
-                        <Link to={`/details/${type}/${id}`} className="overlay text-white">
+                        <Link to={`/details/${type}/${id}`} className="img-overlay text-white">
                             <span className=''>See Details</span>
                         </Link>
                     {/* </div> */}

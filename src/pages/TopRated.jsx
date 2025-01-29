@@ -56,13 +56,13 @@ function TopRated() {
               <div className="app-header" style={{ background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.13) 20%, rgba(0, 0, 0, 0.66)), url(${randomImage}) top center / cover no-repeat` }}>
                 <Navbar />
                 <div className="text-center px-4 d-flex justify-content-center align-items-center" style={{ minHeight: '500px' }}>
-                  <div className="mx-auto" style={{ maxWidth: '700px' }}>
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl text-white font-bold">
-                      <span className="text-red-700 ">MovieFlix, </span>
-                      Your Favourite Top Rated Movies Finder
-                    </h1>
+                    <div className="mx-auto" style={{ maxWidth: '700px' }}>
+                      <h1 className="">
+                        <span className="text-primary ">MovieFlix, </span>
+                        Your Favourite Movie Finder
+                      </h1>
+                    </div>
                   </div>
-                </div>
               </div>
             </div>
 
@@ -70,7 +70,7 @@ function TopRated() {
 
             <div className="container-fluid">
               <div className="pt-5 pb-4">
-                <h1 className="d-inline-block mb-5 px-3 py-2" style={{ fontSize: '28px', backgroundColor: 'rgb(230, 253, 255)' }}>Top Rated Movies</h1>
+              <h1 className="d-inline-block mb-5 px-3 py-2 text-dark" style={{ fontSize: '28px', backgroundColor: 'rgb(230, 253, 255)' }}>Top Rated Movies</h1>
                 <div>
                   <MovieList items={data.results} type="movie" /> {/* Pass the type prop */}
                 </div>

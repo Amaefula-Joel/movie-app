@@ -24,8 +24,8 @@ const Navbar = () => {
 
                     <input className="form-control mb-sm-0 mb-2" type="search" placeholder="Search Movies" aria-label="Search" />
 
-                    <button className="btn btn-light text-white" type="submit">
-                        <i className="fa fa-search text-black"></i>
+                    <button className="btn btn-light text-black" type="submit">
+                        <i className="fa fa-search"></i>
                         <span className="sr-only">submit</span>
                     </button>
                 </form>
