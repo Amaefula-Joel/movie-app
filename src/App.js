@@ -1,9 +1,10 @@
 import './App.css';
-import './styles/custom.css'; // Importing Bootstrap custom CSS
-import 'bootstrap/dist/js/bootstrap.bundle.min'; // Importing Bootstrap JS
+// import './styles/custom.css'; // Importing Bootstrap custom CSS
+// import 'bootstrap/dist/js/bootstrap.bundle.min'; // Importing Bootstrap JS
 import 'font-awesome/css/font-awesome.min.css';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from './context/ThemeContext';
 
 import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
@@ -16,24 +17,31 @@ import Details from './pages/Details'; // Import the Details component
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Landing page */}
-        <Route path="/" element={<LandingPage />} />
+    <div className='dark:bg-black bg-gray-100'>
+      <BrowserRouter>
+        <ThemeProvider>
 
-        {/* application routes */}
-        <Route path="/home" element={<Home />} />
-        <Route path="/trending/:id" element={<TrendingToday />} />
-        <Route path="/top-rated/:id" element={<TopRated />} />
-        <Route path="/in-theatres/:id" element={<Theatres />} />
-        <Route path="/tv-series/:id" element={<TvSeries />} />
-        <Route path="/bookmarks/:id" element={<Bookmarks />} />
-        
-        {/* New routes for details */}
-        <Route path="/details/:type/:id" element={<Details />} />
-        {/* <Route path="/details/:tv/:id" element={<Details />} /> */}
-      </Routes>
-    </BrowserRouter>
+          <Routes>
+            {/* Landing page */}
+            <Route path="/" element={<LandingPage />} />
+
+            {/* application routes */}
+            <Route path="/home" element={<Home />} />
+            <Route path="/trending/:id" element={<TrendingToday />} />
+            <Route path="/top-rated/:id" element={<TopRated />} />
+            <Route path="/in-theatres/:id" element={<Theatres />} />
+            <Route path="/tv-series/:id" element={<TvSeries />} />
+            <Route path="/bookmarks/:id" element={<Bookmarks />} />
+            
+            {/* New routes for details */}
+            <Route path="/details/:type/:id" element={<Details />} />
+            {/* <Route path="/details/:tv/:id" element={<Details />} /> */}
+          </Routes>
+
+        </ThemeProvider>
+      </BrowserRouter>
+
+    </div>
   );
 }
 

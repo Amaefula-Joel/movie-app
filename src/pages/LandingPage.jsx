@@ -1,80 +1,94 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+// import { /* useEffect, */ useState } from 'react';
 import { getTrendingMovies } from '../services/api'; // Import the API function
+import { useTheme } from '../context/ThemeContext';
+import UseFetch from "../hooks/UseFetch";
+
+
+import CtaButton from '../components/CtaButton';
+import MovieList from "../components/MovieList";
+import Accordion from "../components/Accordion";
+import Footer from "../components/Footer";
+
 import '../styles/LandingPage.css';
 
 const frequentlyAskedQuestion = [
   {
-    heading: "What is Movieflix?",
-    answer: "Movieflix is a streaming service that allows you to subscribe and watch a wide variety of television shows, movies, and documentaries."
+    title: "What is Movieflix?",
+    contentParagraph: "Movieflix is a streaming service that allows you to subscribe and watch a wide variety of television shows, movies, and documentaries."
   },
   {
-    heading: "How do I sign up for Movieflix?",
-    answer: "To sign up for Movieflix, simply click on the 'Sign Up' button on our homepage and follow the prompts to create an account."
+    title: "How do I sign up for Movieflix?",
+    contentParagraph: "To sign up for Movieflix, simply click on the 'Sign Up' button on our homepage and follow the prompts to create an account."
   },
   {
-    heading: "What devices can I use to watch Movieflix?",
-    answer: "You can watch Movieflix on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more."
+    title: "What devices can I use to watch Movieflix?",
+    contentParagraph: "You can watch Movieflix on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more."
   },
   {
-    heading: "How much does Movieflix cost?",
-    answer: "Movieflix offers various pricing plans to fit your needs. Our basic plan starts at ₦2,200 per month."
+    title: "How much does Movieflix cost?",
+    contentParagraph: "Movieflix offers various pricing plans to fit your needs. Our basic plan starts at ₦2,200 per month."
   },
   {
-    heading: "Can I cancel my Movieflix subscription at any time?",
-    answer: "Yes, you can cancel your Movieflix subscription at any time through your account settings."
+    title: "Can I cancel my Movieflix subscription at any time?",
+    contentParagraph: "Yes, you can cancel your Movieflix subscription at any time through your account settings."
   },
   {
-    heading: "Is Movieflix available in my country?",
-    answer: "Movieflix is available in many countries. Check our website for availability."
+    title: "Is Movieflix available in my country?",
+    contentParagraph: "Movieflix is available in many countries. Check our website for availability."
   }
 ];
 
 const LandingPage = () => {
-  const [trendingMovies, setTrendingMovies] = useState([]);
+  // const [trendingMovies, setTrendingMovies] = useState([]);
 
-  useEffect(() => {
-    const fetchTrendingMovies = async () => {
-      try {
-        const data = await getTrendingMovies();
-        setTrendingMovies(data.results.slice(0, 6)); // Get the first 6 movies
-      } catch (error) {
-        console.error("Failed to fetch trending movies:", error);
-      }
-    };
+  const { setTheme } = useTheme();
 
-    fetchTrendingMovies();
-  }, []);
+  const { data, loading, error } = UseFetch(getTrendingMovies);
+
+  // useEffect(() => {
+  //   const fetchTrendingMovies = async () => {
+  //     try {
+  //       const data = await getTrendingMovies();
+  //       setTrendingMovies(data.results.slice(0, 6)); // Get the first 6 movies
+  //     } catch (error) {
+  //       console.error("Failed to fetch trending movies:", error);
+  //     }
+  //   };
+
+  //   fetchTrendingMovies();
+  // }, []);
+
+  const handleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  }
 
   return (
-    <div className="main-container">
-      <div className="hero-container d-flex p-relative">
+    <div className="mx-auto max-w-[1500px] dark:bg-[#151515] bg-gray-100">
+      <div className="hero-container flex relative">
         <div className="hero-background" style={{ background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.69) 20%, rgba(0, 0, 0, 0.96)), url('/hero-image.jpg')` }}></div>
-        <div className='hero-content flex-column d-flex p-relative w-100'>
+        <div className='hero-content flex-col flex relative w-full'>
           {/* navbar starts */}
-          <nav className="navbar navbar-expand-lg navbar-dark flex-grow-0">
-            <div className="container d-flex align-items-center">
-              <Link className="navbar-brand font-weight-bold" to="/" style={{ fontSize: '30px' }}>MOVIEFLIX</Link>
-              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              <div className="collapse navbar-collapse" id="navbarsExample07">
-                <ul className="navbar-nav ml-auto">
-                  <li className="nav-item active">
-                    <Link to="/home" className='btn btn-danger px-4'>Explore Now</Link>
-                  </li>
-                </ul>
-              </div>
+
+          <nav className="py-2 px-4">
+            <div className="max-w-[1100px] mx-auto flex justify-between items-center flex-wrap">
+              <Link className="sm:text-[30px] text-[20px] text-white font-bold mb-2" to="/">MOVIEFLIX</Link>
+
+              <CtaButton text="Explore Movies" />
+
+              <button onClick={handleTheme} className="bg-white text-black px-3 py-2">Click </button>
             </div>
           </nav>
           {/* navbar ends */}
           {/* Hero content starts */}
-          <div className="d-flex justify-content-center align-items-center flex-grow-1">
-            <div className="content text-white py-5 px-4" style={{ maxWidth: '500px' }}>
+          <div className="flex justify-center items-center grow">
+            <div className="content text-gray-100 py-16 px-6 max-w-[500px]">
               <div className='text-center'>
-                <h1 className='mb-2'>Discover unlimited movies, TV shows, and more</h1>
-                <p className='mb-4'>Experience the ultimate entertainment destination with a vast library of movies, TV shows, and original content. Start your journey to endless entertainment today!</p>
-                <Link to="/home" className='btn btn-danger px-4'>Explore Now</Link>
+                <h1 className='mb-5 sm:text-5xl text-3xl'>Discover unlimited movies, TV shows, and more</h1>
+
+                <p className='mb-6'>Experience the ultimate entertainment destination with a vast library of movies, TV shows, and original content. Start your journey to endless entertainment today!</p>
+
+                <CtaButton text="Explore Movies" />
               </div>
             </div>
           </div>
@@ -82,115 +96,78 @@ const LandingPage = () => {
         </div >
       </div>
       {/* trending movies section starts */}
-      <section className='text-white py-5'>
-        <div className="container">
-          <h2 className='mb-5'>Trending Now</h2>
-          <div className="row">
-            {trendingMovies.map(movie => (
-              <div key={movie.id} className="col-lg-2 col-md-3 col-sm-4 col-6">
-                <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className='' style={ {aspectRatio: '2/3'} } />
-                <h6 className='my-3 mb-2 text-center font-italic'>{movie.title}</h6>
-                <Link to={`/details/movie/${movie.id}`} className='btn btn-block btn-light'>Full Details</Link>
+      <section className='py-12 border-b-2 border-gray-900'>
+        <div className="max-w-[1100px] mx-auto px-4">
+          <div className="flex items-center gap-4 mb-5">
+            <h2 className='text-xl font-semibold text-gray-900 dark:text-gray-100 border-l-4 border-gray-800 dark:border-gray-100 pl-3'>Trending Now</h2>
+
+            {/* <button className="text-2xl">
+              <Link to="/home" className=' text-gray-900 dark:text-gray-100'><i className="fa-solid fa-arrow-right-long"></i></Link>
+            </button> */}
+          </div>
+
+          <div className="">
+            {loading ? (
+              <div>
+                loading
               </div>
-            ))}
+            ) : error ? (
+              <div>
+                error
+              </div>
+            ) : (
+              <>
+                <MovieList items={data.results} type="movie" /> {/* Pass the type prop */}
+              </>
+            )}
           </div>
         </div>
       </section>
       {/* trending movies section ends */}
       {/* reasons section starts*/}
-      <section className="reasons py-5">
-        <div className="container text-white">
-          <h2 className='mb-4'>More Reasons To Join</h2>
-          <div className="row">
-            <div className="col-md-6 col-12">
-              <div className="card mb-4 shadow-sm">
-                <div className="card-body">
-                  <h4>Discover New Favorites</h4>
-                  <p>Find movies and TV shows tailored to your taste.</p>
-                </div>
-              </div>
+      <section className="reasons py-12">
+        <div className="max-w-[1100px] mx-auto px-4 text-white">
+
+          <h2 className='mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100'>More Reasons To Join</h2>
+          <div className="grid sm:grid-cols-2 grid-cols-1 sm:gap-4 gap-3">
+
+            <div className="p-5 bg-gray-800">
+              <h4 className='text-lg mb-3'>Discover New Favorites</h4>
+              <p className='text-sm'>Find movies and TV shows tailored to your taste.</p>
             </div>
-            <div className="col-md-6 col-12">
-              <div className="card mb-4 shadow-sm">
-                <div className="card-body">
-                  <h4>Get Detailed Insights</h4>
-                  <p>Uncover cast, crew, and reviews for your favorite shows.</p>
-                </div>
-              </div>
+            <div className="p-5 bg-gray-800">
+              <h4 className='text-lg mb-3'>Get Detailed Insights</h4>
+              <p className='text-sm'>Uncover cast, crew, and reviews for your favorite shows.</p>
             </div>
-            <div className="col-md-6 col-12">
-              <div className="card mb-4 shadow-sm">
-                <div className="card-body">
-                  <h4>Explore Similar Titles</h4>
-                  <p>Find movies and TV shows similar to the ones you love.</p>
-                </div>
-              </div>
+            <div className="p-5 bg-gray-800">
+              <h4 className='text-lg mb-3'>Get Detailed Insights</h4>
+              <p className='text-sm'>Uncover cast, crew, and reviews for your favorite shows.</p>
             </div>
-            <div className="col-md-6 col-12">
-              <div className="card mb-4 shadow-sm">
-                <div className="card-body">
-                  <h4>Stay Up-to-Date</h4>
-                  <p>Get notified about new releases and upcoming premieres.</p>
-                </div>
-              </div>
+            <div className="p-5 bg-gray-800">
+              <h4 className='text-lg mb-3'>Stay Up-to-Date</h4>
+              <p className='text-sm'>Get notified about new releases and upcoming premieres.</p>
             </div>
+
           </div>
+
         </div>
       </section>
       {/* reasons section starts*/}
       {/* frequently asked section starts */}
-      <section className="freq-asked py-4">
-        <div className="container text-white">
-          <h2 className="mb-4">Frequently Asked Questions</h2>
+      <section className="freq-asked py-12">
+        <div className="max-w-[1100px] mx-auto px-4 text-white">
+          <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100">Frequently Asked Questions</h2>
           <div id="accordion" className="text-white">
-            {frequentlyAskedQuestion.map((item, index) =>
-              <div key={index} className='card bg-dark mb-2'>
-                <div className="card-header px-2" id={`heading${index}`}>
-                  <h5 className="mb-0">
-                    <button className="btn btn-block text-left text-white border-0 collapse-button d-flex justify-content-between align-items-center" style={{ fontSize: '20px', fontWeight: 500 }} data-toggle="collapse" data-target={`#collapse${index}`} aria-expanded="false" aria-controls={`#collapse${index}`}>
-                      <span>{item.heading}</span>
-                      <i className="fa fa-plus"></i>
-                      <i className="fa fa-close"></i>
-                    </button>
-                  </h5>
-                </div>
-                <div id={`collapse${index}`} className="collapse" aria-labelledby={`heading${index}`} data-parent="#accordion">
-                  <div className="card-body">
-                    {item.answer}
-                  </div>
-                </div>
-              </div>)}
+              <Accordion content={frequentlyAskedQuestion}/>
           </div>
         </div>
       </section>
       {/* frequently asked section ends */}
+
       {/* footer starts */}
-      <footer className="footer py-5 text-white">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-4 col-sm-6 col-12 mb-md-0 mb-4">
-              <h5 className='mb-3'>MOVIEFLIX</h5>
-              <p className='text-white-50'>Watch your favorite movies and TV shows anywhere, anytime.</p>
-            </div>
-            <div className="col-md-4 col-sm-6 col-12 mb-md-0 mb-4">
-              <h5 className='mb-3'>Help</h5>
-              <ul className="list-unstyled">
-                <li><a href="index.html" className='text-light mb-2'>FAQ</a></li>
-                <li><a href="index.html" className='text-light mb-2'>Contact Us</a></li>
-                <li><a href="index.html" className='text-light mb-2'>Terms of Use</a></li>
-              </ul>
-            </div>
-            <div className="col-md-4 col-sm-6 col-12 mb-md-0 mb-4">
-              <h5 className='mb-3'>Follow Us</h5>
-              <ul className="list-unstyled">
-                <li><a href="index.html" className='text-light mb-2'>Facebook</a></li>
-                <li><a href="index.html" className='text-light mb-2'>Twitter</a></li>
-                <li><a href="index.html" className='text-light mb-2'>Instagram</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <div>
+        <Footer />
+      </div>
       {/* footer ends */}
     </div>
   );

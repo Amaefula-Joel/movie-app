@@ -2,14 +2,10 @@ img {
     max-width: 100%;
 }
 
-.p-relative {
-    position: relative;
-}
-
 .main-container {
     max-width: 1500px;
     margin: 0 auto;
-    background-color: rgb(21, 21, 21);
+    background-color: #151515;
 }
 
 .hero-container {

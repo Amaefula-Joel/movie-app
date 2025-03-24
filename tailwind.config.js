@@ -1,8 +1,11 @@
 /** @type {import('tailwindcss').Config} */
+
+const flowbite = require("flowbite-react/tailwind");
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+  darkMode: 'class', // Enables manual toggling of dark mode
   theme: {
     extend: {
       screens: {

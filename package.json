@@ -11,6 +11,7 @@
     "axios": "^1.7.7",
     "bootstrap": "^4.6.2",
     "cra-template": "1.2.0",
+    "flowbite-react": "^0.10.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.7.1",
     "popper.js": "^1.16.1",

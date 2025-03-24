@@ -1,37 +1,31 @@
-.movie-col {
-    /* width: 20%; */
+/* .movie-col {
     flex-grow: 1;
     flex-basis: 200px;
+    max-width: 300px;
 }
 
 
 .movie-card {
-    background-color: rgb(224, 224, 224);
+    background-color: #e0e0e0;
     border-radius: 16px 16px 0 16px;
-}
+} */
 
-.poster-con img {
+/* .poster-con img {
     border-radius: 16px;
     aspect-ratio: 2/3;
-    object-fit: cover;
-}
+    object-fit: cover; 
+} */
 
-.movie-title {
+/* .movie-title {
     font-size: 17px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 140px;
     margin: 0 auto;
-}
+} */
 
-.poster-con {
-    /* existing styles */
-    position: relative;
-    /* Needed for overlay positioning */
-}
-
-.badge {
+/* .badge {
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -40,26 +34,22 @@
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 12px;
-}
+} */
 
-.img-overlay {
+/* .img-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     opacity: 0;
     transition: opacity 0.3s;
-}
+} */
 
-.poster-con:hover .img-overlay {
+/* .poster-con:hover .img-overlay {
     opacity: 1;
-    /* Show overlay on hover */
-}
+} */
 
 .overlay-link {
     color: white;

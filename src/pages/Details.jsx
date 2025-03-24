@@ -40,7 +40,7 @@ const Details = () => {
             } else {
                 similarData = await getSimilarTvSeries(details.id);
             }
-            setSimilarItems(similarData.results.slice(0, 10)); // Get the first 7 similar items
+            setSimilarItems(similarData.results.slice(0, 12)); // Get the first 7 similar items
         }
     };
 
@@ -82,7 +82,7 @@ const Details = () => {
                                         <div className="details-info-container">
                                             <div className="details-info d-flex mb-2">
                                                 <h6 className="mr-3">Summary:</h6>
-                                                <p className="light">{details.overview}</p>
+                                                <p className="light">{details.overview ? details.overview: 'N/A'}</p>
                                             </div>
                                             <div className="details-info d-flex mb-2">
                                                 <h6 className="mr-3">Rating:</h6>

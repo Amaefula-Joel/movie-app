@@ -3,7 +3,8 @@ import '../styles/movieComp.css';
 
 const MovieList = ({ items, type }) => {
     return (
-        <div className="d-flex flex-wrap movie-list">
+        // <div className="flex flex-wrap movie-list">
+        <div className="grid grid-cols-[repeat(20,_140px)] gap-4 overflow-x-auto scroll scrollbar-hide">
             {items.map((item) => (
                 <MovieCard 
                     key={item.id}
