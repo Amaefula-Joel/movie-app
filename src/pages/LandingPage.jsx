@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import { /* useEffect, */ useState } from 'react';
 import { getTrendingMovies } from '../services/api'; // Import the API function
-import { useTheme } from '../context/ThemeContext';
+// import { useTheme } from '../context/ThemeContext';
 import UseFetch from "../hooks/UseFetch";
 
 
+import Navbar from '../components/Navbar';
 import CtaButton from '../components/CtaButton';
 import MovieList from "../components/MovieList";
 import Accordion from "../components/Accordion";
@@ -42,7 +43,7 @@ const frequentlyAskedQuestion = [
 const LandingPage = () => {
   // const [trendingMovies, setTrendingMovies] = useState([]);
 
-  const { setTheme } = useTheme();
+  // const { setTheme } = useTheme();
 
   const { data, loading, error } = UseFetch(getTrendingMovies);
 
@@ -59,26 +60,13 @@ const LandingPage = () => {
   //   fetchTrendingMovies();
   // }, []);
 
-  const handleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-  }
-
   return (
     <div className="mx-auto max-w-[1500px] dark:bg-[#151515] bg-gray-100">
-      <div className="hero-container flex relative">
-        <div className="hero-background" style={{ background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.69) 20%, rgba(0, 0, 0, 0.96)), url('/hero-image.jpg')` }}></div>
-        <div className='hero-content flex-col flex relative w-full'>
+      <div className="min-h-screen max-h-full flex relative">
+        <div className="absolute inset-0 bg-cover" style={{ background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.69) 20%, rgba(0, 0, 0, 0.96)), url('/hero-image.jpg')` }}></div>
+        <div className='flex-col flex relative w-full'>
           {/* navbar starts */}
-
-          <nav className="py-2 px-4">
-            <div className="max-w-[1100px] mx-auto flex justify-between items-center flex-wrap">
-              <Link className="sm:text-[30px] text-[20px] text-white font-bold mb-2" to="/">MOVIEFLIX</Link>
-
-              <CtaButton text="Explore Movies" />
-
-              <button onClick={handleTheme} className="bg-white text-black px-3 py-2">Click </button>
-            </div>
-          </nav>
+          <Navbar />
           {/* navbar ends */}
           {/* Hero content starts */}
           <div className="flex justify-center items-center grow">
@@ -126,26 +114,26 @@ const LandingPage = () => {
       {/* trending movies section ends */}
       {/* reasons section starts*/}
       <section className="reasons py-12">
-        <div className="max-w-[1100px] mx-auto px-4 text-white">
+        <div className="max-w-[1100px] mx-auto px-4">
 
           <h2 className='mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100'>More Reasons To Join</h2>
           <div className="grid sm:grid-cols-2 grid-cols-1 sm:gap-4 gap-3">
 
-            <div className="p-5 bg-gray-800">
-              <h4 className='text-lg mb-3'>Discover New Favorites</h4>
-              <p className='text-sm'>Find movies and TV shows tailored to your taste.</p>
+            <div className="p-5 bg-gray-300 dark:bg-gray-800 rounded-lg">
+              <h4 className='text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100'>Discover New Favorites</h4>
+              <p className='text-sm text-gray-700 dark:text-gray-300'>Find movies and TV shows tailored to your taste.</p>
             </div>
-            <div className="p-5 bg-gray-800">
-              <h4 className='text-lg mb-3'>Get Detailed Insights</h4>
-              <p className='text-sm'>Uncover cast, crew, and reviews for your favorite shows.</p>
+            <div className="p-5 bg-gray-300 dark:bg-gray-800 rounded-lg">
+              <h4 className='text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100'>Get Detailed Insights</h4>
+              <p className='text-sm text-gray-700 dark:text-gray-300'>Uncover cast, crew, and reviews for your favorite shows.</p>
             </div>
-            <div className="p-5 bg-gray-800">
-              <h4 className='text-lg mb-3'>Get Detailed Insights</h4>
-              <p className='text-sm'>Uncover cast, crew, and reviews for your favorite shows.</p>
+            <div className="p-5 bg-gray-300 dark:bg-gray-800 rounded-lg">
+              <h4 className='text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100'>Get Detailed Insights</h4>
+              <p className='text-sm text-gray-700 dark:text-gray-300'>Uncover cast, crew, and reviews for your favorite shows.</p>
             </div>
-            <div className="p-5 bg-gray-800">
-              <h4 className='text-lg mb-3'>Stay Up-to-Date</h4>
-              <p className='text-sm'>Get notified about new releases and upcoming premieres.</p>
+            <div className="p-5 bg-gray-300 dark:bg-gray-800 rounded-lg">
+              <h4 className='text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100'>Stay Up-to-Date</h4>
+              <p className='text-sm text-gray-700 dark:text-gray-300'>Get notified about new releases and upcoming premieres.</p>
             </div>
 
           </div>

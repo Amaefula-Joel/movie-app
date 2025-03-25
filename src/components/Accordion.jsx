@@ -42,7 +42,7 @@ function MyAccordionComponent({ content }) {
             {content.map((item, index) => {
                 return (
                     <Accordion.Panel key={index}>
-                        <Accordion.Title className='text-red-400'>{item.title}</Accordion.Title>
+                        <Accordion.Title>{item.title}</Accordion.Title>
                         <Accordion.Content>
                             <p className="mb-2 text-gray-500 dark:text-gray-400">
                                 {item.contentParagraph}
