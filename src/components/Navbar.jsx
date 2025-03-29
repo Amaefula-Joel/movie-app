@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect, /* useRef */ } from 'react';
+import useFetch from '../hooks/UseFetch';
+import { getSearchedMovie } from '../services/api';
 
 import { useTheme } from '../context/ThemeContext';
 
@@ -59,44 +62,131 @@ export function NavbarComponent() {
         setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
     }
 
+    const [query, setQuery] = useState('lord of rings');
+    const [type, setType] = useState('movie');
+    const [hasSearched, setHasSearched] = useState(true);
+    const [results, setResults] = useState([]);
+
+
+    // const inputRef = useRef();
+    const { data, loading, error } = useFetch(getSearchedMovie, query, type);
+
+    useEffect(() => {
+        if (query.trim() === '') {
+            setHasSearched(false);
+            setResults([])
+            return;
+        }
+
+        setHasSearched(false);
+        if(data){
+            setResults(data.results)
+        }
+
+        // console.log(data);
+        const timeoutId = setTimeout(() => {
+            setHasSearched(true);
+        }, 1000);
+
+        return () => clearTimeout(timeoutId);
+
+    }, [query]);
+
+
     return (
-        <Navbar fluid theme={customTheme} className="relative z-40">
-            <Navbar.Brand as={Link} href="">
-                <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-6 sm:h-9" alt="Movieflix Logo" />
-                <span className="self-center whitespace-nowrap text-xl font-semibold text-white">MovieFlix</span>
-            </Navbar.Brand>
-            <div className="flex items-center md:order-3">
-                <Navbar.Toggle />
+        <div className="relative z-40">
+            <Navbar fluid theme={customTheme}>
+                <Navbar.Brand as={Link} href="">
+                    <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-6 sm:h-9 text-gray-200" alt="Movieflix Logo" />
+                    <span className="self-center whitespace-nowrap text-xl font-semibold text-white">MovieFlix</span>
+                </Navbar.Brand>
+                <div className="flex items-center md:order-3">
+                    <Navbar.Toggle />
 
-                <button onClick={handleTheme} className="py-1 px-2 text-white sm:text-2xl text-lg">
-                    {theme === 'dark' ? (
-                        <i class="fa-solid fa-moon" aria-hidden="true"></i>
-                    ) : (
-                        <i class="fa-solid fa-sun" aria-hidden="true"></i>
-                    )}
-                    <span className="sr-only">Toggle theme</span>
-                </button>
-            </div>
-            <Navbar.Collapse>
-                <form className="w-full">
-                    <div className="flex flex-col md:flex-row items-stretch w-full md:h-11  md:rounded-lg">
-                        <select name="search-option" className="grow-0 bg-gray-700 text-gray-200 px-2 py-1.5 max-md:mb-3 md:border-r-2 border-gray-400 focus:outline-none md:rounded-l-lg">
-                            <option value="movie">Movie</option>
-                            <option value="tv-series">Tv Series</option>
-                        </select>
+                    <button onClick={handleTheme} className="py-1 px-2 text-white sm:text-2xl text-lg">
+                        {theme === 'dark' ? (
+                            <i className="fa-solid fa-moon" aria-hidden="true"></i>
+                        ) : (
+                            <i className="fa-solid fa-sun" aria-hidden="true"></i>
+                        )}
+                        <span className="sr-only">Toggle theme</span>
+                    </button>
+                </div>
+                <Navbar.Collapse className="">
+                    <form className="w-full relative">
+                        <div className="flex flex-col md:flex-row items-stretch w-full md:h-11  md:rounded-lg">
+                            <select
+                                name="search-option"
+                                value={type}
+                                onChange={(e) => { setType(e.target.value) }}
+                                className="grow-0 bg-gray-700 text-gray-200 px-2 py-1.5 max-md:mb-3 md:rounded-l-lg border-2 border-gray-700 focus-visible:border-pink-600 focus-visible:outline-none">
+                                <option value="movie">Movie</option>
+                                <option value="tv-series">Tv Series</option>
+                            </select>
 
-                        <div className="flex md:grow">
-                            <input type="search" placeholder="Search for your movie or show" className="grow bg-gray-700 text-gray-200 w-full md:max-w-[500px] font-normal border-r-2 border-gray-400 px-2 py-1.5 focus:outline-none" />
+                            <div className="flex md:grow">
+                                <input
+                                    type="search"
+                                    value={query}
+                                    onChange={(e) => { setQuery(e.target.value) }}
+                                    placeholder="Search for your movie or show"
+                                    aria-label="Movie search"
+                                    className="grow bg-gray-700 text-gray-200 text-sm w-full md:max-w-[500px] font-normal px-2 py-2.5 border-2 border-gray-700 focus-visible:border-pink-600 focus-visible:outline-none" />
 
-                            <button className="grow-0 py-1 px-2 bg-gray-700 text-gray-200 text-[17px] md:rounded-r-lg">
-                                <i className="fa-solid fa-magnifying-glass"></i>
-                            </button>
+                                {/* <button className="grow-0 py-1 px-2 bg-gray-700 text-gray-200 text-[17px] md:rounded-r-lg">
+                                    <i className="fa-solid fa-magnifying-glass"></i>
+                                </button> */}
+                            </div>
+
                         </div>
 
-                    </div>
-                </form>
-            </Navbar.Collapse>
-        </Navbar>
+                        {/* search result */}
+                        {hasSearched && (
+                            <div className="absolute top-full left-0 w-full bg-black py-4 px-5 border-2 border-gray-700">
+                                
+                                {/* <span className="text-gray-200">{results[0].id}</span> */}
+                                {error ? (
+                                    <div className=" text-gray-200 text-center text-sm ">Error fetching result</div>
+                                ) : !error && hasSearched && results.length === 0 && (
+                                    <div className=" text-gray-200 text-center text-sm ">No results found</div>
+                                )}
+
+                                {/* {!error && hasSearched && results.length === 0 && (
+                                    <div className=" text-gray-200 text-center text-sm ">No results found</div>
+                                )} */}
+
+                                {!error && results.length > 0 && (
+                                    // <div></div>
+                                    <div className="search-results flex flex-col gap-4 max-h-[400px] overflow-y-auto">
+                                        {results.map((item) => (
+                                            <div
+                                                key={item.id}
+                                                className="flex items-start gap-3">
+                                                <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt={item.title || item.name} className="h-[40px] w-[40px] rounded-full" />
+
+                                                <div className="">
+                                                    <h4 className="text-gray-100 text-sm font-semibold mb-1">{item.title || item.name}</h4>
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <p className="text-gray-300 text-xs">TV</p>
+
+                                                        {/* <span className="text-gray-200">-</span>
+
+                                                        <p className="text-gray-400 text-xs">{item.runtime ? `${item.runtime} mins` : 'N/A'}</p> */}
+                                                    </div>
+                                                    <p className="text-gray-400 text-xs">{item.release_date || item.first_air_date}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </form>
+
+                </Navbar.Collapse>
+            </Navbar>
+
+        </div>
     );
 }
 

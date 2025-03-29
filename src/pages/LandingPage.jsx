@@ -1,7 +1,4 @@
-// import { Link } from 'react-router-dom';
-// import { /* useEffect, */ useState } from 'react';
 import { getTrendingMovies } from '../services/api'; // Import the API function
-// import { useTheme } from '../context/ThemeContext';
 import UseFetch from "../hooks/UseFetch";
 
 
