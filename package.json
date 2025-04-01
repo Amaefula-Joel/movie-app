@@ -14,6 +14,7 @@
     "flowbite-react": "^0.10.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.7.1",
+    "lodash": "^4.17.21",
     "popper.js": "^1.16.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.7",

@@ -1,15 +1,24 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect, /* useRef */ } from 'react';
-import useFetch from '../hooks/UseFetch';
+import { useState, useEffect, useCallback } from 'react';
+// import useFetch from '../hooks/UseFetch';
 import { getSearchedMovie } from '../services/api';
 
 import { useTheme } from '../context/ThemeContext';
 
 import { Navbar } from "flowbite-react";
 
+import { debounce } from 'lodash'; // fpr debouncing that is delaying the search function by some time
+
 export function NavbarComponent() {
 
     const { theme, setTheme } = useTheme();
+
+    const [query, setQuery] = useState('');
+    const [type, setType] = useState('movie');
+    const [isSearching, setIsSearching] = useState(true); // loading state
+    const [hasSearched, setHasSearched] = useState(false); // if the user has inputted something in the search
+    const [error, setError] = useState(false);
+    const [results, setResults] = useState([]);
 
     const customTheme = {
         root: {
@@ -56,47 +65,53 @@ export function NavbarComponent() {
             base: "inline-flex items-center p-2 text-sm text-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:text-gray-400 dark:focus:ring-gray-600 md:hidden",
             icon: "h-5 w-5 shrink-0"
         }
-    }
+    };
 
     const handleTheme = () => {
         setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-    }
+    };
 
-    const [query, setQuery] = useState('lord of rings');
-    const [type, setType] = useState('movie');
-    const [hasSearched, setHasSearched] = useState(true);
-    const [results, setResults] = useState([]);
+    const handleTypeChange = (e) => {
+        setType(e.target.value === 'movie' ? 'movie' : 'tv');
+    };
+    const handleQueryChange = (e) => {
+        setQuery(e.target.value);
+    };
 
+    const debouncedSearch = useCallback(
+        debounce(async (query, type) => {
+            if (query.trim() === "") {
+                setResults([]);
+                setIsSearching(false);
+                setHasSearched(false);
+                return;
+            }
 
-    // const inputRef = useRef();
-    const { data, loading, error } = useFetch(getSearchedMovie, query, type);
-
-    useEffect(() => {
-        if (query.trim() === '') {
-            setHasSearched(false);
-            setResults([])
-            return;
-        }
-
-        setHasSearched(false);
-        if(data){
-            setResults(data.results)
-        }
-
-        // console.log(data);
-        const timeoutId = setTimeout(() => {
+            setError(false);
+            setIsSearching(true);
             setHasSearched(true);
-        }, 1000);
-
-        return () => clearTimeout(timeoutId);
-
-    }, [query]);
-
+            try {
+                const data = await getSearchedMovie(query, type);
+                setResults(data?.results || []);
+            } catch (error) {
+                console.error("Search error:", error);
+                setError(true);
+                setResults([]);
+            } finally {
+                setIsSearching(false);
+            }
+        }, 500), // 500ms delay
+        []
+    );
+    useEffect(() => {
+        debouncedSearch(query, type);
+        return () => debouncedSearch.cancel();
+    }, [query, type, debouncedSearch]);
 
     return (
         <div className="relative z-40">
             <Navbar fluid theme={customTheme}>
-                <Navbar.Brand as={Link} href="">
+                <Navbar.Brand href="/">
                     <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-6 sm:h-9 text-gray-200" alt="Movieflix Logo" />
                     <span className="self-center whitespace-nowrap text-xl font-semibold text-white">MovieFlix</span>
                 </Navbar.Brand>
@@ -118,24 +133,20 @@ export function NavbarComponent() {
                             <select
                                 name="search-option"
                                 value={type}
-                                onChange={(e) => { setType(e.target.value) }}
-                                className="grow-0 bg-gray-700 text-gray-200 px-2 py-1.5 max-md:mb-3 md:rounded-l-lg border-2 border-gray-700 focus-visible:border-pink-600 focus-visible:outline-none">
+                                onChange={handleTypeChange}
+                                className="grow-0 text-sm bg-gray-200 dark:bg-black text-gray-800 dark:text-gray-200 px-2 py-1.5 max-md:mb-3 md:rounded-l-lg border-2 border-gray-700 duration-150 focus-visible:border-pink-600 focus-visible:outline-none">
                                 <option value="movie">Movie</option>
-                                <option value="tv-series">Tv Series</option>
+                                <option value="tv">Tv Series</option>
                             </select>
 
                             <div className="flex md:grow">
                                 <input
                                     type="search"
                                     value={query}
-                                    onChange={(e) => { setQuery(e.target.value) }}
+                                    onChange={handleQueryChange}
                                     placeholder="Search for your movie or show"
                                     aria-label="Movie search"
-                                    className="grow bg-gray-700 text-gray-200 text-sm w-full md:max-w-[500px] font-normal px-2 py-2.5 border-2 border-gray-700 focus-visible:border-pink-600 focus-visible:outline-none" />
-
-                                {/* <button className="grow-0 py-1 px-2 bg-gray-700 text-gray-200 text-[17px] md:rounded-r-lg">
-                                    <i className="fa-solid fa-magnifying-glass"></i>
-                                </button> */}
+                                    className="grow text-sm bg-gray-200 dark:bg-black  text-gray-800 dark:text-gray-200 placeholder-gray-500  w-full md:max-w-[500px] font-normal px-2 py-2.5 border-2 border-gray-700 duration-150 focus-visible:border-pink-600 focus-visible:outline-none" />
                             </div>
 
                         </div>
@@ -143,42 +154,65 @@ export function NavbarComponent() {
                         {/* search result */}
                         {hasSearched && (
                             <div className="absolute top-full left-0 w-full bg-black py-4 px-5 border-2 border-gray-700">
-                                
-                                {/* <span className="text-gray-200">{results[0].id}</span> */}
-                                {error ? (
+
+                                {isSearching ? (
+                                    <div className=" text-gray-200 text-center text-sm ">Loading</div>
+                                ): error ? (
                                     <div className=" text-gray-200 text-center text-sm ">Error fetching result</div>
-                                ) : !error && hasSearched && results.length === 0 && (
+                                ) : !isSearching && results.length === 0 ? (
                                     <div className=" text-gray-200 text-center text-sm ">No results found</div>
-                                )}
-
-                                {/* {!error && hasSearched && results.length === 0 && (
-                                    <div className=" text-gray-200 text-center text-sm ">No results found</div>
-                                )} */}
-
-                                {!error && results.length > 0 && (
-                                    // <div></div>
+                                ) : results.length > 0 && (
                                     <div className="search-results flex flex-col gap-4 max-h-[400px] overflow-y-auto">
                                         {results.map((item) => (
                                             <div
                                                 key={item.id}
                                                 className="flex items-start gap-3">
-                                                <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt={item.title || item.name} className="h-[40px] w-[40px] rounded-full" />
+                                                <a
+                                                href={`/details/${type}/${item.id}`} >
+                                                    <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt={item.title || item.name} className="h-[40px] w-[40px] rounded-full" />
+                                                </a>
 
                                                 <div className="">
-                                                    <h4 className="text-gray-100 text-sm font-semibold mb-1">{item.title || item.name}</h4>
-                                                    <div className="flex items-center gap-2 mb-1">
-                                                        <p className="text-gray-300 text-xs">TV</p>
-
-                                                        {/* <span className="text-gray-200">-</span>
-
-                                                        <p className="text-gray-400 text-xs">{item.runtime ? `${item.runtime} mins` : 'N/A'}</p> */}
-                                                    </div>
-                                                    <p className="text-gray-400 text-xs">{item.release_date || item.first_air_date}</p>
+                                                    <h4 className="text-gray-100 text-sm font-semibold mb-1">
+                                                        <a 
+                                                            href={`/details/${type}/${item.id}`} 
+                                                            className="hover:text-red-500 duration-150"> 
+                                                            {item.title || item.name} 
+                                                        </a> 
+                                                    </h4>
+                                                    
+                                                    <p className="text-gray-400 text-xs">{new Date(item.release_date || item.first_air_date).getFullYear()}</p>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                 )}
+
+                                {//!error &&z results.length > 0 && (
+                                    // <div></div>
+                                    // <div className="search-results flex flex-col gap-4 max-h-[400px] overflow-y-auto">
+                                    //     {results.map((item) => (
+                                    //         <div
+                                    //             key={item.id}
+                                    //             className="flex items-start gap-3">
+                                    //             <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt={item.title || item.name} className="h-[40px] w-[40px] rounded-full" />
+
+                                    //             <div className="">
+                                    //                 <h4 className="text-gray-100 text-sm font-semibold mb-1">{item.title || item.name}</h4>
+                                    //                 <div className="flex items-center gap-2 mb-1">
+                                    //                     <p className="text-gray-300 text-xs">TV</p>
+
+                                    //                     {/* <span className="text-gray-200">-</span>
+
+                                    //                     <p className="text-gray-400 text-xs">{item.runtime ? `${item.runtime} mins` : 'N/A'}</p> */}
+                                    //                 </div>
+                                    //                 <p className="text-gray-400 text-xs">{item.release_date || item.first_air_date}</p>
+                                    //             </div>
+                                    //         </div>
+                                    //     ))}
+                                    // </div>
+                                    //)
+                                }
                             </div>
                         )}
                     </form>

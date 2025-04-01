@@ -49,9 +49,11 @@ export const getSimilarTvSeries = (id) =>
   fetchMovies(`/tv/${id}/similar`);
 
 export const getSearchedMovie = (query, type) => {
-  const endpoint = type === 'movie' ? '/search/movie' : '/search/tv';
+  const endpoint = type === 'movie' ? '/search/movie?include_adult=true' : '/search/tv?include_adult=true';
   return fetchMovies( endpoint, /* `&include_adult=true` */ { query });
 }
-
-// https://api.themoviedb.org/3/tv/{series_id}/similar
-// https://api.themoviedb.org/3/movie/{movie_id}/similar
+/* // In api.js, modify getSearchedMovie
+export const getSearchedMovie = (query, type) => {
+  const endpoint = type === 'movie' ? '/search/movie' : '/search/tv';
+  return fetchMovies(endpoint, { query });
+} */
