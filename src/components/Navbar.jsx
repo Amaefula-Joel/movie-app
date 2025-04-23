@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useState, useEffect, useCallback } from 'react';
 // import useFetch from '../hooks/UseFetch';
 import { getSearchedMovie } from '../services/api';
@@ -134,7 +134,7 @@ export function NavbarComponent() {
                                 name="search-option"
                                 value={type}
                                 onChange={handleTypeChange}
-                                className="grow-0 text-sm bg-gray-200 dark:bg-black text-gray-800 dark:text-gray-200 px-2 py-1.5 max-md:mb-3 md:rounded-l-lg border-2 border-gray-700 duration-150 focus-visible:border-pink-600 focus-visible:outline-none">
+                                className="grow-0 text-sm bg-black text-gray-200 px-2 py-1.5 max-md:mb-3 md:rounded-l-lg border-2 border-gray-700 duration-150 focus-visible:border-pink-600 focus-visible:outline-none">
                                 <option value="movie">Movie</option>
                                 <option value="tv">Tv Series</option>
                             </select>
@@ -146,7 +146,7 @@ export function NavbarComponent() {
                                     onChange={handleQueryChange}
                                     placeholder="Search for your movie or show"
                                     aria-label="Movie search"
-                                    className="grow text-sm bg-gray-200 dark:bg-black  text-gray-800 dark:text-gray-200 placeholder-gray-500  w-full md:max-w-[500px] font-normal px-2 py-2.5 border-2 border-gray-700 duration-150 focus-visible:border-pink-600 focus-visible:outline-none" />
+                                    className="grow text-sm bg-black text-gray-200 placeholder-gray-500  w-full md:max-w-[500px] font-normal px-2 py-2.5 border-2 border-gray-700 duration-150 focus-visible:border-pink-600 focus-visible:outline-none" />
                             </div>
 
                         </div>

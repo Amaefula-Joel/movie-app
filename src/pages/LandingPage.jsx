@@ -38,24 +38,8 @@ const frequentlyAskedQuestion = [
 ];
 
 const LandingPage = () => {
-  // const [trendingMovies, setTrendingMovies] = useState([]);
-
-  // const { setTheme } = useTheme();
 
   const { data, loading, error } = UseFetch(getTrendingMovies);
-
-  // useEffect(() => {
-  //   const fetchTrendingMovies = async () => {
-  //     try {
-  //       const data = await getTrendingMovies();
-  //       setTrendingMovies(data.results.slice(0, 6)); // Get the first 6 movies
-  //     } catch (error) {
-  //       console.error("Failed to fetch trending movies:", error);
-  //     }
-  //   };
-
-  //   fetchTrendingMovies();
-  // }, []);
 
   return (
     <div className="mx-auto max-w-[1500px] dark:bg-[#151515] bg-gray-100">
@@ -102,7 +86,7 @@ const LandingPage = () => {
               </div>
             ) : (
               <>
-                <MovieList items={data.results} type="movie" /> {/* Pass the type prop */}
+                <MovieList items={data.results} type="movie" arrangement="linear" /> {/* Pass the type prop */}
               </>
             )}
           </div>

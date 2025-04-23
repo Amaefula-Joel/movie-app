@@ -70,7 +70,7 @@ function Home() {
                 <div className="pt-5 pb-4">
                   <h1 className="d-inline-block mb-5 px-3 py-2 text-dark" style={{ fontSize: '28px', backgroundColor: 'rgb(230, 253, 255)' }}>Popular Movies</h1>
                   <div>
-                    <MovieList items={data.results} type="movie" /> {/* Pass the type prop */}
+                    <MovieList items={data.results} type="movie" arrangement="stacked" /> {/* Pass the type prop */}
                   </div>
                 </div>
               </div>

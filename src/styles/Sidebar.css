@@ -60,22 +60,57 @@
     text-decoration: none;
 }
 
-.sidebar:hover {
-    width: 200px;
+
+@media (min-width: 768px) {
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .sidebar:hover .links i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+
+    .sidebar:hover .links {
+        justify-content: flex-start;
+    }
+
+    .sidebar:hover .links span {
+        width: 100%;
+    }
+
 }
 
-.sidebar:hover .links {
-    justify-content: flex-start;
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+
+    /* css for toggle */
+    .sidebar.open {
+        width: 200px;
+    }
+
+    .sidebar.open .links i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+
+    .sidebar.open .links {
+        justify-content: flex-start;
+    }
+
+    .sidebar.open .links span {
+        width: 100%;
+    }
+
+    /* .sidebar {
+        width: 50px;
+    }
+
+    .sidebar:hover {
+        width: 150px;
+    } */
 }
 
-.sidebar:hover .links i {
-    margin-right: 10px;
-    font-size: 1.2rem;
-}
-
-.sidebar:hover .links span {
-    width: 100%;
-}
 
 .active-bg {
     background-color: #fff;
@@ -88,36 +123,30 @@
     transition: .4s;
 }
 
-.sidebar ul li:hover ~ .active-bg {
+.sidebar ul li:hover~.active-bg {
     display: block;
 }
 
-.sidebar ul li:nth-child(1):hover ~ .active-bg {
+.sidebar ul li:nth-child(1):hover~.active-bg {
     top: 2%;
 }
-.sidebar ul li:nth-child(2):hover ~ .active-bg {
+
+.sidebar ul li:nth-child(2):hover~.active-bg {
     top: calc(2% + (16.5% * 1));
 }
-.sidebar ul li:nth-child(3):hover ~ .active-bg {
+
+.sidebar ul li:nth-child(3):hover~.active-bg {
     top: calc(2% + (16.5% * 2));
 }
-.sidebar ul li:nth-child(4):hover ~ .active-bg {
+
+.sidebar ul li:nth-child(4):hover~.active-bg {
     top: calc(2% + (16.5% * 3));
 }
-.sidebar ul li:nth-child(5):hover ~ .active-bg {
+
+.sidebar ul li:nth-child(5):hover~.active-bg {
     top: calc(2% + (16.5% * 4));
 }
-.sidebar ul li:nth-child(6):hover ~ .active-bg {
+
+.sidebar ul li:nth-child(6):hover~.active-bg {
     top: calc(2% + (16.5% * 5));
-}
-
-/* Media Queries for Responsive Design */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 50px; /* Adjust width for smaller screens */
-    }
-
-    .sidebar:hover {
-        width: 150px; /* Adjust hover width for smaller screens */
-    }
 }
