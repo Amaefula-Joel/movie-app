@@ -2,7 +2,7 @@ import '../styles/loader.css';
 
 const Loader = () => {
     return (
-        <div className='d-flex justify-content-center align-items-center' style={{ height: '100vh', minHeight: '500px' }}>
+        <div className='flex justify-center items-center h-screen min-h-[500px]'>
             <div className="loading">
                 <span></span>
                 <span></span>
