@@ -36,21 +36,32 @@ export const getInTheatresMovies = (page = 1) =>
 export const getTvSeries = (page = 1) =>
   fetchMovies("/tv/popular", { page });
 
-export const getMovieDetails = (id) =>
-  fetchMovies(`/movie/${id}`);
+// export const getMovieDetails = (id) =>
+//   fetchMovies(`/movie/${id}`);
 
-export const getTvSeriesDetails = (id) =>
-  fetchMovies(`/tv/${id}`);
+// export const getTvSeriesDetails = (id) =>
+//   fetchMovies(`/tv/${id}`);
 
-export const getSimilarMovies = (id) =>
-  fetchMovies(`/movie/${id}/similar`);
+export const getDetails = (id, type) =>
+  fetchMovies(`/${type}/${id}`);
 
-export const getSimilarTvSeries = (id) =>
-  fetchMovies(`/tv/${id}/similar`);
+
+// export const getSimilarMovies = (id) =>
+//   fetchMovies(`/movie/${id}/similar`);
+
+// export const getSimilarTvSeries = (id) =>
+//   fetchMovies(`/tv/${id}/similar`);
+
+export const getRecommendations = (id, type) =>
+  fetchMovies(`/${type}/${id}/recommendations`);
 
 export const getSearchedMovie = (query, type) => {
   const endpoint = type === 'movie' ? '/search/movie?include_adult=true' : '/search/tv?include_adult=true';
   return fetchMovies( endpoint, /* `&include_adult=true` */ { query });
+}
+export const getVideo = (id, type) => {
+  // const endpoint = `/${type}/${id}/videos`;
+  return fetchMovies(`/${type}/${id}/videos`);
 }
 /* // In api.js, modify getSearchedMovie
 export const getSearchedMovie = (query, type) => {
