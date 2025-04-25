@@ -20,6 +20,13 @@ const Details = () => {
     const [trailer, setTrailer] = useState([]);
 
     useEffect(() => {
+        setLoading(true);
+        setError(null);
+        setDetails(null);
+        setTrailer(null);
+        setCredit(null);
+        setRecommendations([]);
+
         const fetchDetails = async () => {
             try {
                 const data = await getDetails(id, type);
@@ -47,11 +54,12 @@ const Details = () => {
 
         fetchDetails();
         fetchTrailer();
-    }, [id, type, trailer]);
+    }, [id, type]);
 
+    useEffect(() => {
+        if (!details) return;
 
-    const fetchRecommendations = async () => {
-        if (details) {
+        const fetchRecommendations = async () => {
             try {
                 let recommendations = await getRecommendations(id, type);
 
@@ -59,21 +67,22 @@ const Details = () => {
             } catch (err) {
                 console.error('error getting recommendations')
             }
-        }
-    };
+        };
 
-    const fetchCredit = async () => {
-        try {
-            let credits = await getCredit(id, type);
+        const fetchCredit = async () => {
+            try {
+                let credits = await getCredit(id, type);
 
-            setCredit(credits);
-        } catch (err) {
-            console.log('error fetching credits: ' + err);
-        }
-    };
+                setCredit(credits);
+            } catch (err) {
+                console.log('error fetching credits: ' + err);
+            }
+        };
 
-    fetchCredit();
-    fetchRecommendations();
+        fetchCredit();
+        fetchRecommendations();
+    }, [id, type, details]);
+
 
     return (
 
@@ -115,7 +124,7 @@ const Details = () => {
                                         />
                                     </div>
 
-                                    <div className="right md:pl-5 max-md:px-4">
+                                    <div className="right md:pl-5 max-md:px-2.5">
                                         <div className="mt-4 mb-8 md:min-h-[84px]">
                                             <h1 className="mb-2 md:text-left text-center md:text-2xl text-xl font-semibold text-white max-md:dark:text-white max-md:text-black">{details.title || details.name}</h1>
                                             <h5 className="original-title md:text-left text-center italic md:text-xl text-md text-gray-200 max-md:dark:text-gray-300 max-md:text-gray-800">{details.tagline}</h5>
@@ -169,20 +178,21 @@ const Details = () => {
 
 
                                             {/* cast and crew */}
-                                            {credit && (
+                                            {credit && Array.isArray(credit.cast) && Array.isArray(credit.crew) && (
+
 
                                                 <>
-                                                    <div className="mt-8">
-                                                        <h3 className="text-gray-700 dark:text-gray-300 text-md mb-3 text-lg font-semibold">Cast</h3>
+                                                    <div className="mt-10">
+                                                        <h3 className="text-gray-700 dark:text-gray-300 text-md mb-4 text-lg font-semibold pl-2 border-l-4 dark:border-gray-100 border-gray-900">Cast</h3>
 
-                                                        <div className="grid md:grid-cols-5 grid-cols-3 gap-4 ">
+                                                        <div className="grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-4 ">
                                                             {credit.cast.map(cast => {
                                                                 return (
                                                                     <div className="text-center" key={cast.id}>
                                                                         <img
                                                                             src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
                                                                             alt={cast.name}
-                                                                            className="w-full rounded-lg min-h-[180px] bg-gray-200"
+                                                                            className="w-full rounded-lg min-h-[180px] object-cover bg-gray-200"
                                                                         />
 
                                                                         <h4 className="my-1 text-[16px] text-gray-800 dark:text-gray-300">{cast.name}</h4>
@@ -194,17 +204,17 @@ const Details = () => {
 
                                                     </div>
 
-                                                    <div className="mt-8">
-                                                        <h3 className="text-gray-700 dark:text-gray-300 text-md mb-3 text-lg font-semibold">Staff</h3>
+                                                    <div className="mt-10">
+                                                        <h3 className="text-gray-700 dark:text-gray-300 text-md mb-4 text-lg font-semibold pl-2 border-l-4 dark:border-gray-100 border-gray-900">Staff</h3>
 
-                                                        <div className="grid md:grid-cols-5 grid-cols-3 gap-4 ">
+                                                        <div className="grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-4 ">
                                                             {credit.crew.map(crew => {
                                                                 return (
                                                                     <div className="text-center" key={crew.id}>
                                                                         <img
                                                                             src={`https://image.tmdb.org/t/p/w500${crew.profile_path}`}
                                                                             alt={crew.name}
-                                                                            className="w-full rounded-lg min-h-[180px] bg-gray-200"
+                                                                            className="w-full rounded-lg min-h-[180px] object-cover bg-gray-200"
                                                                         />
 
                                                                         <h4 className="my-1 text-[16px] text-gray-800 dark:text-gray-300">{crew.name}</h4>
