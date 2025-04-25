@@ -109,7 +109,7 @@ export function NavbarComponent() {
     }, [query, type, debouncedSearch]);
 
     return (
-        <div className="relative z-50 w-full">
+        <div className="relative z-[90] w-full">
             <Navbar fluid theme={customTheme}>
                 <Navbar.Brand href="/">
                     <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-6 sm:h-9 text-gray-200" alt="Movieflix Logo" />

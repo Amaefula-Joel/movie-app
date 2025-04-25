@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { getDetails, getRecommendations, getVideo } from "../services/api";
+import { useParams } from "react-router-dom";
+import { getDetails, getRecommendations, getVideo, getCredit } from "../services/api";
 import Loader from "../components/Loader";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
@@ -16,13 +16,12 @@ const Details = () => {
 
 
     const [recommendations, setRecommendations] = useState([]);
+    const [credit, setCredit] = useState([]);
     const [trailer, setTrailer] = useState([]);
-    // const navigate = useNavigate();
 
     useEffect(() => {
         const fetchDetails = async () => {
             try {
-                // const data = type === 'movie' ? await getMovieDetails(id) : await getTvSeriesDetails(id);
                 const data = await getDetails(id, type);
                 setDetails(data);
             } catch (err) {
@@ -37,30 +36,24 @@ const Details = () => {
                 const data = await getVideo(id, type);
 
                 // get the first trailer video
-                const firstTrailerMatch = data.results.find((video) => {
-                    return video.type === 'Trailer';
-                })
+                const firstTrailerMatch = data.results.find(video => video.type === 'Trailer');
 
                 setTrailer(firstTrailerMatch);
 
             } catch (err) {
                 console.error('there was an error getting the video')
-            } finally {
-                // setTrailer
-                console.log(trailer);
             }
         };
 
         fetchDetails();
         fetchTrailer();
-    }, [id, type]);
+    }, [id, type, trailer]);
 
 
     const fetchRecommendations = async () => {
         if (details) {
-            let recommendations;
             try {
-                recommendations = await getRecommendations(id, type);
+                let recommendations = await getRecommendations(id, type);
 
                 setRecommendations(recommendations.results);
             } catch (err) {
@@ -69,10 +62,18 @@ const Details = () => {
         }
     };
 
-    fetchRecommendations();
+    const fetchCredit = async () => {
+        try {
+            let credits = await getCredit(id, type);
 
-    // if (loading) return <Loader />;
-    // if (error) return <div>Error fetching details: {error.message}</div>;
+            setCredit(credits);
+        } catch (err) {
+            console.log('error fetching credits: ' + err);
+        }
+    };
+
+    fetchCredit();
+    fetchRecommendations();
 
     return (
 
@@ -90,12 +91,12 @@ const Details = () => {
                 ) : (
                     <div className="details-container">
                         <div className="backdrop-container relative overflow-hidden">
-                            <div className="absolute top-0 left-0 right-0">
+                            <div className="absolute top-0 left-0 right-0 z-[90]">
                                 <Navbar />
                             </div>
 
                             <img
-                                className="md:h-[480px] h-[320px] w-full object-cover object-[top_center]"
+                                className="h-[480px] w-full object-cover object-[top_center]"
                                 src={`https://image.tmdb.org/t/p/w1280/${details.backdrop_path}`}
                                 alt={details.title || details.name} />
 
@@ -103,7 +104,7 @@ const Details = () => {
                             <div className="absolute inset-0 z-20 bg-gradient-to-b from-transparent  to-black/90"></div>
                         </div>
 
-                        <div className="details-content relative md:-mt-[150px] -mt-[200px] z-50">
+                        <div className="details-content relative md:-mt-[150px] -mt-[160px] z-50">
                             <div className="py-6">
                                 <div className="grid md:grid-cols-[240px_1fr] grid-col-1">
                                     <div className="left flex md:justify-left justify-center items-start">
@@ -115,51 +116,107 @@ const Details = () => {
                                     </div>
 
                                     <div className="right md:pl-5 max-md:px-4">
-                                        <div className="mt-4 mb-12">
+                                        <div className="mt-4 mb-8 md:min-h-[84px]">
                                             <h1 className="mb-2 md:text-left text-center md:text-2xl text-xl font-semibold text-white max-md:dark:text-white max-md:text-black">{details.title || details.name}</h1>
                                             <h5 className="original-title md:text-left text-center italic md:text-xl text-md text-gray-200 max-md:dark:text-gray-300 max-md:text-gray-800">{details.tagline}</h5>
                                         </div>
 
-                                        <div className="container max-w-[600px]">
-                                            <div className="flex gap-4 mb-3">
-                                                <h6 className="mr-3 font-semibold text-gray-700 dark:text-gray-300 w-[130px] shrink-0">Summary:</h6>
-                                                <p className="dark:text-gray-300 text-gray-600 text-sm md:text-[16px] shrink">{details.overview ? details.overview : 'N/A'}</p>
+                                        <div className="container max-w-[660px]">
+                                            <div className="mb-9">
+                                                <p className="dark:text-gray-300 text-gray-600 text-sm md:text-[16px]">{details.overview ? details.overview : 'N/A'}</p>
                                             </div>
-                                            <div className="flex gap-4 mb-3">
-                                                <h6 className="mr-3 font-semibold text-gray-700 dark:text-gray-300 w-[130px] shrink-0">Status:</h6>
-                                                <p className="dark:text-gray-300 text-gray-600 text-sm md:text-[16px] shrink">{details.status}</p>
+
+                                            <div className="flex gap-x-5 gap-y-3 flex-wrap mb-6 items-center">
+                                                <div className="flex gap-3 items-center">
+                                                    <h6 className="text-gray-700 dark:text-gray-300">Status:</h6>
+                                                    <p className="font-semibold dark:text-gray-300 text-gray-600 text-sm md:text-[16px]">{details.status}</p>
+                                                </div>
+                                                <div className="flex gap-3 items-center">
+                                                    <h6 className="text-gray-700 dark:text-gray-300"> <span className="sr-only">Rating</span> <i className="fa-regular fa-star"></i> </h6>
+                                                    <p className="font-semibold dark:text-gray-300 text-gray-600 text-sm md:text-[16px]">{details.vote_average}({details.vote_count} user(s) voted)</p>
+                                                </div>
+                                                <div className="flex gap-3 items-center">
+                                                    <h6 className="text-gray-700 dark:text-gray-300"> <span className="sr-only">Languages</span> <i className="fas fa-language"></i> </h6>
+                                                    <p className="font-semibold dark:text-gray-300 text-gray-600 text-sm md:text-[16px]">{details.spoken_languages.map(lang => lang.name).join(', ')}</p>
+                                                </div>
+                                                <div className="flex gap-3 items-center">
+                                                    <h6 className="text-gray-700 dark:text-gray-300">Runtime:</h6>
+                                                    <p className="font-semibold dark:text-gray-300 text-gray-600 text-sm md:text-[16px]">{details.runtime ? `${details.runtime} mins` : 'N/A'}</p>
+                                                </div>
                                             </div>
-                                            <div className="flex gap-4 mb-3">
-                                                <h6 className="mr-3 font-semibold text-gray-700 dark:text-gray-300 w-[130px] shrink-0">Rating:</h6>
-                                                <p className="dark:text-gray-300 text-gray-600 text-sm md:text-[16px] shrink">{details.vote_average}({details.vote_count} user(s) voted)</p>
+
+                                            <div className="mb-6">
+                                                <h6 className="text-gray-700 dark:text-gray-300 mb-2">Release Date:</h6>
+                                                <p className="font-semibold dark:text-gray-300 text-gray-600 text-sm md:text-[16px] ml-3">{details.release_date || details.first_air_date}</p>
                                             </div>
-                                            <div className="flex gap-4 mb-3">
-                                                <h6 className="mr-3 font-semibold text-gray-700 dark:text-gray-300 w-[130px] shrink-0">Languages :</h6>
-                                                <p className="dark:text-gray-300 text-gray-600 text-sm md:text-[16px] shrink">{details.spoken_languages.map(lang => lang.name).join(', ')}</p>
+
+                                            <div className="mb-6">
+                                                <h6 className="text-gray-700 dark:text-gray-300 mb-2">Production Companies:</h6>
+                                                <p className="font-semibold dark:text-gray-300 text-gray-600 text-sm md:text-[16px] ml-3">{details.production_companies.map(company => company.name).join(', ')}</p>
                                             </div>
-                                            <div className="flex gap-4 mb-3">
-                                                <h6 className="mr-3 font-semibold text-gray-700 dark:text-gray-300 w-[130px] shrink-0">Release Date:</h6>
-                                                <p className="dark:text-gray-300 text-gray-600 text-sm md:text-[16px] shrink">{details.release_date || details.first_air_date}</p>
-                                            </div>
-                                            <div className="flex gap-4 mb-3">
-                                                <h6 className="mr-3 font-semibold text-gray-700 dark:text-gray-300 w-[130px] shrink-0">Runtime:</h6>
-                                                <p className="dark:text-gray-300 text-gray-600 text-sm md:text-[16px] shrink">{details.runtime ? `${details.runtime} mins` : 'N/A'}</p>
-                                            </div>
-                                            <div className="flex gap-4 mb-3">
-                                                <h6 className="mr-3 font-semibold text-gray-700 dark:text-gray-300 w-[130px] shrink-0">Production Companies:</h6>
-                                                <p className="dark:text-gray-300 text-gray-600 text- md:text-md shrink">{details.production_companies.map(company => company.name).join(', ')}</p>
-                                            </div>
-                                            <div className="flex gap-4 mb-3">
-                                                <h6 className="mr-3 font-semibold text-gray-700 dark:text-gray-300 w-[130px] shrink-0">Genres:</h6>
-                                                <div className="shrink">
+
+                                            <div className="mb-6">
+                                                <h6 className="text-gray-700 dark:text-gray-300 mb-2">Genres:</h6>
+                                                <div className="flex flex-wrap gap-1.5 ml-3">
                                                     {details.genres.map(genre => {
-                                                        return (<button className="px-4 py-2 mr-2 rounded-md bg-pink-500 text-white border-0" key={genre.id}>{genre.name}</button>)
+                                                        return (<button className="px-4 py-1.5 mr-2 rounded-md bg-pink-500 text-white border-0" key={genre.id}>{genre.name}</button>)
                                                     })}
                                                 </div>
                                             </div>
 
                                             {/* the trailer is here */}
-                                            { trailer && <YouTubeEmbed videoKey={trailer.key} /> }
+                                            {trailer && <YouTubeEmbed videoKey={trailer.key} />}
+
+
+                                            {/* cast and crew */}
+                                            {credit && (
+
+                                                <>
+                                                    <div className="mt-8">
+                                                        <h3 className="text-gray-700 dark:text-gray-300 text-md mb-3 text-lg font-semibold">Cast</h3>
+
+                                                        <div className="grid md:grid-cols-5 grid-cols-3 gap-4 ">
+                                                            {credit.cast.map(cast => {
+                                                                return (
+                                                                    <div className="text-center" key={cast.id}>
+                                                                        <img
+                                                                            src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
+                                                                            alt={cast.name}
+                                                                            className="w-full rounded-lg min-h-[180px] bg-gray-200"
+                                                                        />
+
+                                                                        <h4 className="my-1 text-[16px] text-gray-800 dark:text-gray-300">{cast.name}</h4>
+                                                                        <p className="italic text-sm text-gray-700 dark:text-gray-400">{cast.character}</p>
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div className="mt-8">
+                                                        <h3 className="text-gray-700 dark:text-gray-300 text-md mb-3 text-lg font-semibold">Staff</h3>
+
+                                                        <div className="grid md:grid-cols-5 grid-cols-3 gap-4 ">
+                                                            {credit.crew.map(crew => {
+                                                                return (
+                                                                    <div className="text-center" key={crew.id}>
+                                                                        <img
+                                                                            src={`https://image.tmdb.org/t/p/w500${crew.profile_path}`}
+                                                                            alt={crew.name}
+                                                                            className="w-full rounded-lg min-h-[180px] bg-gray-200"
+                                                                        />
+
+                                                                        <h4 className="my-1 text-[16px] text-gray-800 dark:text-gray-300">{crew.name}</h4>
+                                                                        <p className="italic text-sm text-gray-700 dark:text-gray-400">{crew.job}</p>
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+
+                                                    </div>
+                                                </>
+                                            )}
                                         </div>
 
 
@@ -169,7 +226,7 @@ const Details = () => {
                         </div>
 
                         <div className="mt-10 mb-8 px-4">
-                            <h2 className="mb-8 py-1 px-3 text-white text-lg font-semibold border-l-4 border-gray-100">Recommendations</h2>
+                            <h2 className="mb-8 py-1 px-3 text-black dark:text-white text-lg font-semibold border-l-4 dark:border-gray-100 border-gray-900">Recommendations</h2>
                             <MovieList items={recommendations} type={type} arrangement="linear" />
                         </div>
                     </div>
