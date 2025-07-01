@@ -4,6 +4,7 @@ import { getDetails, getRecommendations, getVideo, getCredit } from "../services
 import Loader from "../components/Loader";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import YouTubeEmbed from "../components/YouTubeEmbed";
 
 import MovieList from "../components/MovieList";
@@ -185,10 +186,10 @@ const Details = () => {
                                                     <div className="mt-10">
                                                         <h3 className="text-gray-700 dark:text-gray-300 text-md mb-4 text-lg font-semibold pl-2 border-l-4 dark:border-gray-100 border-gray-900">Cast</h3>
 
-                                                        <div className="grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-4 ">
+                                                        <div className="flex overflow-x-auto space-x-4 scrollbar-hide ">
                                                             {credit.cast.map(cast => {
                                                                 return (
-                                                                    <div className="text-center" key={cast.id}>
+                                                                    <div className="text-center w-[120px] flex-shrink-0" key={cast.id}>
                                                                         <img
                                                                             src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
                                                                             alt={cast.name}
@@ -201,16 +202,15 @@ const Details = () => {
                                                                 )
                                                             })}
                                                         </div>
-
                                                     </div>
 
                                                     <div className="mt-10">
                                                         <h3 className="text-gray-700 dark:text-gray-300 text-md mb-4 text-lg font-semibold pl-2 border-l-4 dark:border-gray-100 border-gray-900">Staff</h3>
 
-                                                        <div className="grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-4 ">
+                                                        <div className="flex overflow-x-auto space-x-4 scrollbar-hide ">
                                                             {credit.crew.map(crew => {
                                                                 return (
-                                                                    <div className="text-center" key={crew.id}>
+                                                                    <div className="text-center w-[120px] flex-shrink-0" key={crew.id}>
                                                                         <img
                                                                             src={`https://image.tmdb.org/t/p/w500${crew.profile_path}`}
                                                                             alt={crew.name}
@@ -235,10 +235,18 @@ const Details = () => {
                             </div>
                         </div>
 
-                        <div className="mt-10 mb-8 px-4">
-                            <h2 className="mb-8 py-1 px-3 text-black dark:text-white text-lg font-semibold border-l-4 dark:border-gray-100 border-gray-900">Recommendations</h2>
-                            <MovieList items={recommendations} type={type} arrangement="linear" />
-                        </div>
+                        {recommendations ? (
+                            <div className="mt-10 mb-8 px-4">
+                                <h2 className="mb-8 py-1 px-3 text-black dark:text-white text-lg font-semibold border-l-4 dark:border-gray-100 border-gray-900">Recommendations</h2>
+
+                                <MovieList items={recommendations} type={type} arrangement="linear" />
+                            </div>
+                        ) : (
+                            <h2 className="mb-8 py-1 px-3 text-black dark:text-white text-lg font-semibold border-l-4 dark:border-gray-100 border-gray-900"> No Recommendations</h2>
+                        )
+                        }
+
+                        <Footer />
                     </div>
                 )}
 

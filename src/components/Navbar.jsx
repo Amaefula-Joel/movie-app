@@ -128,7 +128,7 @@ export function NavbarComponent() {
                     </button>
                 </div>
                 <Navbar.Collapse className="">
-                    <form className="w-full relative">
+                    <div className="w-full relative">
                         <div className="flex flex-col md:flex-row items-stretch w-full md:h-11  md:rounded-lg">
                             <select
                                 name="search-option"
@@ -215,7 +215,7 @@ export function NavbarComponent() {
                                 }
                             </div>
                         )}
-                    </form>
+                    </div>
 
                 </Navbar.Collapse>
             </Navbar>

@@ -42,7 +42,7 @@ function Home() {
           {loading ? (
             <Loader />
           ) : error ? (
-            <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+            <div className="flex justify-center items-center h-screen">
               <div className="alert alert-danger text-center" role="alert">
                 <h2 className="alert-heading">Error fetching movies: {error}</h2>
               </div>
@@ -53,11 +53,10 @@ function Home() {
               <div className="bg-dark">
                 <div className="app-header" style={{ background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.13) 20%, rgba(0, 0, 0, 0.66)), url(${randomImage}) top center / cover no-repeat` }}>
                   <Navbar />
-                  <div className="text-center px-4 d-flex justify-content-center align-items-center" style={{ minHeight: '500px' }}>
-                    <div className="mx-auto" style={{ maxWidth: '700px' }}>
+                  <div className="text-center px-4 flex justify-center items-center min-h-[500px]">
+                    <div className="mx-auto max-w-[700px]">
                       <h1 className="">
-                        <span className="text-danger ">MovieFlix, </span>
-                        Your Favourite Movie Finder
+                        <span className="text-red-600 bg-black">MovieFlix,</span> Your Favourite Movie Finder
                       </h1>
                     </div>
                   </div>
@@ -66,9 +65,20 @@ function Home() {
               {/* header ends */}
 
               {/* movie list starts */}
-              <div className="container-fluid">
-                <div className="pt-5 pb-4">
-                  <h1 className="d-inline-block mb-5 px-3 py-2 text-dark" style={{ fontSize: '28px', backgroundColor: 'rgb(230, 253, 255)' }}>Popular Movies</h1>
+              <div className="md:px-5 px-2">
+                <div className="pt-8 pb-4">
+                  {/* <h1 className="d-inline-block mb-5 px-3 py-2 text-dark text-xl border-l-4 border-l-black"></h1> */}
+
+                  <div className="flex items-center gap-4 mb-8">
+                    <h2 className='text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-pink-500 pl-4 tracking-tight drop-shadow-md'>
+                      <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                        Popular Movies
+                      </span>
+                    </h2>
+                    <span className="inline-block w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
+                  </div>
+
+
                   <div>
                     <MovieList items={data.results} type="movie" arrangement="stacked" /> {/* Pass the type prop */}
                   </div>
