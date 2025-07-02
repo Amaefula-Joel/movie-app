@@ -10,7 +10,7 @@ const MovieCard = ({ id, poster_path, title, vote_average, release_date, adult, 
                     {adult && <span className="absolute bottom-4 right-4 bg-red-500 text-white px-2 py-1 rounded-md text-xs"> +18 </span>}
 
                     {/* See Details Link */}
-                    <Link to={`/details/${type}/${id}`} className="absolute inset-0 bg-black/50 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white">
+                    <Link to={`/details/${type}/${id}`} className="absolute inset-0 bg-black/70 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white">
                         <span className=''>See Details</span>
                     </Link>
 

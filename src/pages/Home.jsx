@@ -53,6 +53,7 @@ function Home() {
               <div className="bg-dark">
                 <div className="app-header" style={{ background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.13) 20%, rgba(0, 0, 0, 0.66)), url(${randomImage}) top center / cover no-repeat` }}>
                   <Navbar />
+                  
                   <div className="text-center px-4 flex justify-center items-center min-h-[500px]">
                     <div className="mx-auto max-w-[700px]">
                       <h1 className="">
