@@ -248,85 +248,103 @@ const Details = () => {
                                                 <span className="inline-block w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
                                             </div>
 
-                                            {trailer && <YouTubeEmbed videoKey={trailer.key} />}
+                                            {/* Trailer Video or No Trailer */}
+                                            {trailer ? (
+                                                <YouTubeEmbed videoKey={trailer.key} />
+                                            ) : (
+                                                <div className="mb-8 px-4">
+                                                    <h4 className="text-lg font-semibold text-gray-700 dark:text-gray-300 italic">
+                                                        No Trailer Available
+                                                    </h4>
+                                                </div>
+                                            )}
 
-
-                                            {/* cast and crew */}
-                                            {credit && Array.isArray(credit.cast) && Array.isArray(credit.crew) && (
-
-
+                                            {/* Cast and Crew */}
+                                            {credit && (
                                                 <>
-                                                    <div className="mt-16">
-                                                        {/* Cast Heading */}
-                                                        <div className="flex items-center gap-3 mb-8 mt-10">
-                                                            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-pink-500 pl-4 tracking-tight drop-shadow-md m-0">
-                                                                <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-                                                                    Cast
-                                                                </span>
-                                                            </h3>
-                                                            <span className="inline-block w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
-                                                        </div>
-
-                                                        <div className="flex overflow-x-auto space-x-4 scrollbar-hide ">
-                                                            {credit.cast.map((cast, idx) => {
-                                                                return (
-                                                                    <div className="text-center w-[120px] flex-shrink-0" key={`${cast.id}-${idx}`}>
-                                                                        <img
-                                                                            src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
-                                                                            alt={cast.name}
-                                                                            className="w-full rounded-lg min-h-[180px] object-cover bg-gray-200"
-                                                                        />
-
-                                                                        <h4 className="my-1 text-[16px] text-gray-800 dark:text-gray-300">{cast.name}</h4>
-                                                                        <p className="italic text-sm text-gray-700 dark:text-gray-400">{cast.character}</p>
+                                                    {/* Cast */}
+                                                    {Array.isArray(credit.cast) && credit.cast.length > 0 && (
+                                                        <div className="mt-16">
+                                                            <div className="flex items-center gap-3 mb-8 mt-10">
+                                                                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-pink-500 pl-4 tracking-tight drop-shadow-md m-0">
+                                                                    <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                                                                        Cast
+                                                                    </span>
+                                                                </h3>
+                                                                <span className="inline-block w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
+                                                            </div>
+                                                            <div className="flex overflow-x-auto space-x-6 scrollbar-hide pb-2">
+                                                                {credit.cast.map((cast, idx) => (
+                                                                    <div
+                                                                        className="flex flex-col items-center bg-white dark:bg-gray-900 rounded-lg shadow-md p-3 min-w-[140px] max-w-[140px] transition-transform hover:-translate-y-2 hover:shadow-xl"
+                                                                        key={`${cast.id}-${idx}`}
+                                                                    >
+                                                                        {cast.profile_path ? (
+                                                                            <img
+                                                                                src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
+                                                                                alt={cast.name}
+                                                                                className="w-[90px] h-[120px] rounded-md object-cover bg-gray-200 mb-2 border-2 border-pink-400"
+                                                                            />
+                                                                        ) : (
+                                                                            <div className="w-[90px] h-[120px] flex items-center justify-center rounded-md bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 mb-2 border-2 border-pink-400 text-gray-500 text-xs font-semibold">
+                                                                                No Image
+                                                                            </div>
+                                                                        )}
+                                                                        <h4 className="font-semibold text-gray-800 dark:text-gray-100 text-center text-sm truncate w-full">{cast.name}</h4>
+                                                                        <p className="italic text-xs text-gray-600 dark:text-gray-400 text-center truncate w-full">{cast.character}</p>
                                                                     </div>
-                                                                )
-                                                            })}
+                                                                ))}
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    )}
 
-                                                    <div className="mt-16">
-                                                        {/* Crew/Staff Heading */}
-                                                        <div className="flex items-center gap-3 mb-8 mt-10">
-                                                            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-pink-500 pl-4 tracking-tight drop-shadow-md m-0">
-                                                                <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-                                                                    Staff
-                                                                </span>
-                                                            </h3>
-                                                            <span className="inline-block w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
-                                                        </div>
-
-                                                        <div className="flex overflow-x-auto space-x-4 scrollbar-hide ">
-                                                            {credit.crew.map((crew, idx) => {
-                                                                return (
-                                                                    <div className="text-center w-[120px] flex-shrink-0" key={`${crew.id}-${idx}`}>
-                                                                        <img
-                                                                            src={`https://image.tmdb.org/t/p/w500${crew.profile_path}`}
-                                                                            alt={crew.name}
-                                                                            className="w-full rounded-lg min-h-[180px] object-cover bg-gray-200"
-                                                                        />
-
-                                                                        <h4 className="my-1 text-[16px] text-gray-800 dark:text-gray-300">{crew.name}</h4>
-                                                                        <p className="italic text-sm text-gray-700 dark:text-gray-400">{crew.job}</p>
+                                                    {/* Staff/Crew */}
+                                                    {Array.isArray(credit.crew) && credit.crew.length > 0 && (
+                                                        <div className="mt-16">
+                                                            <div className="flex items-center gap-3 mb-8 mt-10">
+                                                                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-pink-500 pl-4 tracking-tight drop-shadow-md m-0">
+                                                                    <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                                                                        Staff
+                                                                    </span>
+                                                                </h3>
+                                                                <span className="inline-block w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
+                                                            </div>
+                                                            <div className="flex overflow-x-auto space-x-6 scrollbar-hide pb-2">
+                                                                {credit.crew.map((crew, idx) => (
+                                                                    <div
+                                                                        className="flex flex-col items-center bg-white dark:bg-gray-900 rounded-lg shadow-md p-3 min-w-[140px] max-w-[140px] transition-transform hover:-translate-y-2 hover:shadow-xl"
+                                                                        key={`${crew.id}-${idx}`}
+                                                                    >
+                                                                        {crew.profile_path ? (
+                                                                            <img
+                                                                                src={`https://image.tmdb.org/t/p/w500${crew.profile_path}`}
+                                                                                alt={crew.name}
+                                                                                className="w-[90px] h-[120px] rounded-md object-cover bg-gray-200 mb-2 border-2 border-blue-400"
+                                                                            />
+                                                                        ) : (
+                                                                            <div className="w-[90px] h-[120px] flex items-center justify-center rounded-md bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 mb-2 border-2 border-blue-400 text-gray-500 text-xs font-semibold">
+                                                                                No Image
+                                                                            </div>
+                                                                        )}
+                                                                        <h4 className="font-semibold text-gray-800 dark:text-gray-100 text-center text-sm truncate w-full">{crew.name}</h4>
+                                                                        <p className="italic text-xs text-gray-600 dark:text-gray-400 text-center truncate w-full">{crew.job}</p>
                                                                     </div>
-                                                                )
-                                                            })}
+                                                                ))}
+                                                            </div>
                                                         </div>
-
-                                                    </div>
+                                                    )}
                                                 </>
                                             )}
-                                        </div>
 
+                                        </div>
 
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {recommendations ? (
+                        {Array.isArray(recommendations) && recommendations.length > 0 ? (
                             <div className="mt-10 mb-8 px-4">
-
                                 <div className="flex items-center gap-3 mb-8">
                                     <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-pink-500 pl-4 tracking-tight drop-shadow-md m-0">
                                         <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
@@ -335,17 +353,17 @@ const Details = () => {
                                     </h2>
                                     <span className="inline-block w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
                                 </div>
-
                                 <MovieList items={recommendations} type={type} arrangement="linear" />
                             </div>
                         ) : (
-                            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-pink-500 pl-4 tracking-tight drop-shadow-md m-0">
-                                <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-                                    No Recommendations
-                                </span>
-                            </h2>
-                        )
-                        }
+                            <div className="mt-10 mb-8 px-4">
+                                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-pink-500 pl-4 tracking-tight drop-shadow-md m-0">
+                                    <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                                        No Recommendations
+                                    </span>
+                                </h2>
+                            </div>
+                        )}
 
                         <Footer />
                     </div>
