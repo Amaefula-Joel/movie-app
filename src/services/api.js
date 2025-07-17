@@ -36,6 +36,10 @@ export const getInTheatresMovies = (page = 1) =>
 export const getTvSeries = (page = 1) =>
   fetchMovies("/tv/popular", { page });
 
+export const getAnime = (page = 1) =>
+  fetchMovies("/discover/tv?with_keywords=210024&sort_by=popularity.desc&with_genres=16", { page });
+
+
 export const getDetails = (id, type) =>
   fetchMovies(`/${type}/${id}`);
 

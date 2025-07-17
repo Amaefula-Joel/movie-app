@@ -15,33 +15,40 @@ import Bookmarks from './pages/Bookmarks';
 import TvSeries from './pages/TvSeries';
 import Details from './pages/Details'; // Import the Details component
 
+import '@mantine/core/styles.css';
+import '@mantine/carousel/styles.css';
+
+import { MantineProvider } from '@mantine/core';
+
 function App() {
   return (
-    <div className='dark:bg-black bg-gray-100'>
-      <BrowserRouter>
-        <ThemeProvider>
+    <MantineProvider>
+      <div className='dark:bg-black bg-gray-100'>
+        <BrowserRouter>
+          <ThemeProvider>
 
-          <Routes>
-            {/* Landing page */}
-            <Route path="/" element={<LandingPage />} />
+            <Routes>
+              {/* Landing page */}
+              <Route path="/" element={<LandingPage />} />
 
-            {/* application routes */}
-            <Route path="/home" element={<Home />} />
-            <Route path="/trending/:id" element={<TrendingToday />} />
-            <Route path="/top-rated/:id" element={<TopRated />} />
-            <Route path="/in-theatres/:id" element={<Theatres />} />
-            <Route path="/tv-series/:id" element={<TvSeries />} />
-            <Route path="/bookmarks/:id" element={<Bookmarks />} />
-            
-            {/* New routes for details */}
-            <Route path="/details/:type/:id" element={<Details />} />
-            {/* <Route path="/details/:tv/:id" element={<Details />} /> */}
-          </Routes>
+              {/* application routes */}
+              <Route path="/home" element={<Home />} />
+              <Route path="/trending/:id" element={<TrendingToday />} />
+              <Route path="/top-rated/:id" element={<TopRated />} />
+              <Route path="/in-theatres/:id" element={<Theatres />} />
+              <Route path="/tv-series/:id" element={<TvSeries />} />
+              <Route path="/bookmarks/:id" element={<Bookmarks />} />
+              
+              {/* New routes for details */}
+              <Route path="/details/:type/:id" element={<Details />} />
+              {/* <Route path="/details/:tv/:id" element={<Details />} /> */}
+            </Routes>
 
-        </ThemeProvider>
-      </BrowserRouter>
+          </ThemeProvider>
+        </BrowserRouter>
 
-    </div>
+      </div>
+    </MantineProvider>
   );
 }
 
