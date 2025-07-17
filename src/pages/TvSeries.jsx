@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
 
-import { getTvSeries } from "../services/api"; // Ensure this API function exists
+import { getPopularTvSeries } from "../services/api"; // Ensure this API function exists
 import UseFetch from "../hooks/UseFetch";
 import MovieList from "../components/MovieList";
 
@@ -15,7 +15,7 @@ function TvSeries() {
   const navigate = useNavigate();
   const page = parseInt(id, 10) || 1;
 
-  const { data, loading, error } = UseFetch(getTvSeries, page);
+  const { data, loading, error } = UseFetch(getPopularTvSeries, page);
   const [randomImage, setRandomImage] = useState("");
 
   const getRandomImage = (series) => {

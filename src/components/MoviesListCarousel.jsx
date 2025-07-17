@@ -19,7 +19,7 @@ const MoviesListCarousel = ({ movies = [], type }) => {
                 spaceBetween={20}
                 slidesPerView={5}
                 navigation
-                autoplay={{ delay: 2500, disableOnInteraction: false }}
+                autoplay={{ delay: 4000, disableOnInteraction: false }}
                 breakpoints={{
                     320: { slidesPerView: 3 },
                     640: { slidesPerView: 4 },

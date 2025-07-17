@@ -10,7 +10,7 @@ import CustomHeading from "../components/CustomHeading";
 import HeroCarousel from "../components/HeroCarousel";
 import MoviesListCarousel from '../components/MoviesListCarousel'
 
-import { getTrendingMovies, getPopularMovies , getInTheatresMovies, getTopRatedMovies, getAnime } from "../services/api";
+import { getTrendingMovies, getPopularMovies , getInTheatresMovies, getTopRatedMovies, getAnime, getUpcomingMovies, getPopularTvSeries } from "../services/api";
 import UseFetch from "../hooks/UseFetch";
 
 function Home() {
@@ -19,6 +19,8 @@ function Home() {
   const { data: animeData, loading: animeLoading, error: animeError } = UseFetch(getAnime);
   const { data: theatresData, loading: theatresLoading, error: theatresError } = UseFetch(getInTheatresMovies);
   const { data: topRatedData, loading: topRatedLoading, error: topRatedError } = UseFetch(getTopRatedMovies);
+  const { data: upcomingData, loading: upcomingLoading, error: upcomingError } = UseFetch(getUpcomingMovies);
+  const { data: tvSeriesData, loading: tvSeriesLoading, error: tvSeriesError } = UseFetch(getPopularTvSeries);
 
 
   return (
@@ -26,9 +28,9 @@ function Home() {
       <Sidebar />
       <main className="main-content">
         <div>
-          {(trendingLoading || theatresLoading || topRatedLoading || animeLoading || popularLoading) ? (
+          {(trendingLoading || theatresLoading || topRatedLoading || animeLoading || popularLoading || upcomingLoading || tvSeriesLoading) ? (
             <Loader />
-          ) : (trendingError || theatresError || topRatedError || animeError || popularError) ? (
+          ) : (trendingError || theatresError || topRatedError || animeError || popularError || upcomingError || tvSeriesError) ? (
             <div className="flex justify-center items-center h-screen">
               <div className="alert alert-danger text-center" role="alert">
                 <h2 className="alert-heading">Error fetching movies</h2>
@@ -66,6 +68,20 @@ function Home() {
                   <CustomHeading title="Popular Movies" />
 
                   <MoviesListCarousel type="movie" movies={popularData?.results || []} />
+                </section>
+
+                {/* Upcoming Movies Carousel */}
+                <section className="mt-6 mb-10">
+                  <CustomHeading title="Upcoming Movies" />
+
+                  <MoviesListCarousel type="movie" movies={upcomingData?.results || []} />
+                </section>
+
+                {/* TV Series Carousel */}
+                <section className="mt-6 mb-10">
+                  <CustomHeading title="Popular TV Series" />
+
+                  <MoviesListCarousel type="tv" movies={tvSeriesData?.results || []} />
                 </section>
 
                 {/* Anime Carousel */}
