@@ -6,8 +6,13 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import YouTubeEmbed from "../components/YouTubeEmbed";
+import CustomHeading from "../components/CustomHeading";
 
-import MovieList from "../components/MovieList";
+
+import { useBookmarkStore } from '../store/bookmarks';
+
+// import MovieList from "../components/MovieList";
+import MoviesListCarousel from "../components/MoviesListCarousel";
 
 const Details = () => {
     const { id, type } = useParams(); // type is either 'movie' or 'tv'
@@ -19,6 +24,26 @@ const Details = () => {
     const [recommendations, setRecommendations] = useState([]);
     const [credit, setCredit] = useState([]);
     const [trailer, setTrailer] = useState([]);
+
+    const { addBookmark, removeBookmark, isBookmarked } = useBookmarkStore();
+    const bookmarked = isBookmarked(details?.id);
+
+    const handleBookmark = () => {
+        if (bookmarked) {
+            removeBookmark(details.id);
+        } else {
+            addBookmark({
+                id: details.id,
+                title: details.title || details.name,
+                poster_path: details.poster_path,
+                backdrop_path: details.backdrop_path,
+                overview: details.overview,
+                release_date: details.release_date,
+                vote_average: details.vote_average,
+                type: type
+            });
+        }
+    };
 
     useEffect(() => {
         setLoading(true);
@@ -138,7 +163,19 @@ const Details = () => {
                                     <div className="right md:pl-5 max-md:px-2.5">
                                         <div className="mt-4 mb-8 md:min-h-[84px]">
                                             {/* Title */}
-                                            <h1 className="mb-2 md:text-left text-center md:text-3xl text-2xl font-semibold text-white max-md:dark:text-white max-md:text-black">{details.title || details.name}</h1>
+                                            <div className="flex items-center gap-5 mb-3">
+                                                <h1 className="md:text-left text-center md:text-3xl text-2xl font-semibold text-white max-md:dark:text-white max-md:text-black">{details.title || details.name}</h1>
+                                                
+                                                <button
+                                                    onClick={handleBookmark}
+                                                    className={`w-8 h-8 flex items-center justify-center rounded-full 
+                                                        ${bookmarked ? 'bg-red-500 text-white' : 'bg-white/80 text-gray-900 hover:bg-red-500 hover:text-white'} 
+                                                        transition-colors duration-200 shadow`}
+                                                    title="Bookmark"
+                                                >
+                                                    <i className="fa fa-bookmark-o"></i>
+                                                </button>
+                                            </div>
 
                                             {/* Tagline */}
                                             <h5 className="original-title md:text-left text-center italic md:text-xl text-md text-gray-200 max-md:dark:text-gray-300 max-md:text-gray-800">"{details.tagline}"</h5>
@@ -239,14 +276,7 @@ const Details = () => {
                                             {/* the trailer is here */}
 
                                             {/* Trailer Heading */}
-                                            <div className="flex items-center gap-3 py-10">
-                                                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-pink-500 pl-4 tracking-tight drop-shadow-md m-0">
-                                                    <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-                                                        Trailer
-                                                    </span>
-                                                </h3>
-                                                <span className="inline-block w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
-                                            </div>
+                                            <CustomHeading title="Trailer" />
 
                                             {/* Trailer Video or No Trailer */}
                                             {trailer ? (
@@ -265,14 +295,8 @@ const Details = () => {
                                                     {/* Cast */}
                                                     {Array.isArray(credit.cast) && credit.cast.length > 0 && (
                                                         <div className="mt-16">
-                                                            <div className="flex items-center gap-3 mb-8 mt-10">
-                                                                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-pink-500 pl-4 tracking-tight drop-shadow-md m-0">
-                                                                    <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-                                                                        Cast
-                                                                    </span>
-                                                                </h3>
-                                                                <span className="inline-block w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
-                                                            </div>
+                                                            <CustomHeading title="Cast" />
+
                                                             <div className="flex overflow-x-auto space-x-6 scrollbar-hide pb-2">
                                                                 {credit.cast.map((cast, idx) => (
                                                                     <div
@@ -301,14 +325,8 @@ const Details = () => {
                                                     {/* Staff/Crew */}
                                                     {Array.isArray(credit.crew) && credit.crew.length > 0 && (
                                                         <div className="mt-16">
-                                                            <div className="flex items-center gap-3 mb-8 mt-10">
-                                                                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-pink-500 pl-4 tracking-tight drop-shadow-md m-0">
-                                                                    <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-                                                                        Staff
-                                                                    </span>
-                                                                </h3>
-                                                                <span className="inline-block w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
-                                                            </div>
+                                                            <CustomHeading title="Crew" />
+
                                                             <div className="flex overflow-x-auto space-x-6 scrollbar-hide pb-2">
                                                                 {credit.crew.map((crew, idx) => (
                                                                     <div
@@ -345,15 +363,10 @@ const Details = () => {
 
                         {Array.isArray(recommendations) && recommendations.length > 0 ? (
                             <div className="mt-10 mb-8 px-4">
-                                <div className="flex items-center gap-3 mb-8">
-                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-pink-500 pl-4 tracking-tight drop-shadow-md m-0">
-                                        <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-                                            Recommendations
-                                        </span>
-                                    </h2>
-                                    <span className="inline-block w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
-                                </div>
-                                <MovieList items={recommendations} type={type} arrangement="linear" />
+                                <CustomHeading title="Recommendations" />
+
+                                <MoviesListCarousel movies={recommendations} type={type} />
+                                {/* <MovieList items={recommendations} type={type} arrangement="linear" /> */}
                             </div>
                         ) : (
                             <div className="mt-10 mb-8 px-4">

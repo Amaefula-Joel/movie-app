@@ -47,7 +47,7 @@ function Sidebar() {
             </NavLink>
           </li>
           <li className=''>
-            <NavLink to='/bookmarks/1' className='links flex'>
+            <NavLink to='/bookmarks' className='links flex'>
               <i className="fa-solid fa-bookmark" aria-hidden="true"></i> <span>Bookmark</span>
             </NavLink>
           </li>

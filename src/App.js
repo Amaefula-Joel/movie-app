@@ -37,7 +37,7 @@ function App() {
               <Route path="/top-rated/:id" element={<TopRated />} />
               <Route path="/in-theatres/:id" element={<Theatres />} />
               <Route path="/tv-series/:id" element={<TvSeries />} />
-              <Route path="/bookmarks/:id" element={<Bookmarks />} />
+              <Route path="/bookmarks" element={<Bookmarks />} />
               
               {/* New routes for details */}
               <Route path="/details/:type/:id" element={<Details />} />

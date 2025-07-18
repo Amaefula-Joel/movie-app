@@ -1,6 +1,19 @@
 import { Link } from 'react-router-dom';
+import { useBookmarkStore } from '../store/bookmarks';
 
-const MovieCard = ({ id, poster_path, title, vote_average, release_date, adult, type }) => {
+const MovieCard = ({ id, poster_path, title, vote_average, release_date, adult, type, ...movie }) => {
+    const { addBookmark, removeBookmark, isBookmarked } = useBookmarkStore();
+    const bookmarked = isBookmarked(id);
+
+    const handleBookmark = (e) => {
+        e.stopPropagation();
+        if (bookmarked) {
+            removeBookmark(id);
+        } else {
+            addBookmark({ id, poster_path, title, vote_average, release_date, adult, type, ...movie });
+        }
+    };
+
     return (
         <div className="grow-span-1">
             <div className="rounded-2xl rounded-br-none">
@@ -19,7 +32,7 @@ const MovieCard = ({ id, poster_path, title, vote_average, release_date, adult, 
                         className={`
                             absolute top-3 left-3
                             flex items-center justify-center
-                            w-8 h-8 rounded-full text-white font-bold text-xs
+                            w-8 h-8 rounded-full text-white font-bold text-xs select-none
                             ${vote_average >= 7.5
                                 ? 'bg-green-500'
                                 : vote_average >= 5
@@ -33,7 +46,10 @@ const MovieCard = ({ id, poster_path, title, vote_average, release_date, adult, 
 
                     {/* bookmark button in top right */}
                     <button
-                        className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 hover:bg-red-500 transition-colors duration-200 text-gray-900 dark:text-gray-100 hover:text-white shadow"
+                        onClick={handleBookmark}
+                        className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full 
+                          ${bookmarked ? 'bg-red-500 text-white' : 'bg-white/80 text-gray-900 hover:bg-red-500 hover:text-white'} 
+                          transition-colors duration-200 shadow`}
                         title="Bookmark"
                     >
                         <i className="fa fa-bookmark-o"></i>
